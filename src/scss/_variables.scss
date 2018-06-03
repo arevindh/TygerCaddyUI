@@ -1,1 +1,22 @@
 // Variable overrides
+$orange: #f96332;
+$white: #fff;
+
+$theme-colors: (
+  primary: $orange
+);
+
+$navbar-bg: $orange !default;
+$navbar-brand-border : $orange !default;
+$navbar-color:  $white !default;
+$navbar-hover-color: $white !default;
+$navbar-active-color:                 $white !default;
+
+$navbar-brand-minimized-width:        50px !default;
+$navbar-brand-minimized-bg:           $navbar-bg !default;
+$navbar-brand-minimized-border:       $navbar-brand-border !default;
+
+
+.app-header{
+  border-bottom : 0px !important;
+}
