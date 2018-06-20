@@ -37,12 +37,12 @@ export const navItems = [
     children: [
       {
         name: 'View',
-        url: '/hosts',
+        url: '/hosts/view',
         icon: 'fa fa-list'
       },
       {
         name: 'Add',
-        url: '/hosts/cards',
+        url: '/hosts/add',
         icon: 'fa fa-plus-circle'
       }
     ]
