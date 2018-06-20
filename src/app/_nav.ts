@@ -32,17 +32,17 @@ export const navItems = [
   },
   {
     name :'Hosts',
-    url :'/base',
+    url :'/hosts',
     icon:'fa fa-database',
     children: [
       {
         name: 'View',
-        url: '/base/cards',
+        url: '/hosts',
         icon: 'fa fa-list'
       },
       {
         name: 'Add',
-        url: '/base/cards',
+        url: '/hosts/cards',
         icon: 'fa fa-plus-circle'
       }
     ]

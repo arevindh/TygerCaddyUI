@@ -98,6 +98,27 @@
         [legend]="mainChartLegend"
         [chartType]="mainChartType"></canvas>
       </div>
+
+      
+    <div>
+      <ngx-datatable 
+      class="bootstrap responsive fullscreen"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columns]="columns"
+      [columnMode]="'force'"
+      [headerHeight]="40"
+      [summaryRow]="true"
+      [summaryPosition]="'bottom'"
+      [footerHeight]="40"
+      [limit]="10"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [sortType]="'multi'"
+        >
+      </ngx-datatable>
+    </div>
+
     </div>
     <div class="card-footer">
       <div class="row text-center">
@@ -138,6 +159,8 @@
         </div>
       </div>
     </div>
+
+
   </div>
   <!--/.card-->
 
