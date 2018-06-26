@@ -20,17 +20,19 @@ const routes: Routes = [
         }
       },
       {
-        path :'edit',
+        path :'edit/:id',
         component : UpdateComponent,
         data: {
-          title: 'Edit Hosts'
+          title: 'Edit Hosts',
+          type : 'edit'
         }
       },
       {
         path :'add',
         component : UpdateComponent,
         data: {
-          title: 'Add Hosts'
+          title: 'Add Hosts',
+          type : 'add'
         }
       }
     ]

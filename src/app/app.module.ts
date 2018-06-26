@@ -35,10 +35,21 @@ import {
 // Import routing module
 import { AppRoutingModule } from './app.routing';
 
+import { HttpClientModule } from '@angular/common/http';
+
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+
+import { HostService } from './services/host.service';
+
+import { FormsModule } from '@angular/forms';
+
+import { AlertService } from './services/alert.service';
+
+import { AuthGuard } from './guards/auth-guard';
+
 
 @NgModule({
   imports: [
@@ -52,7 +63,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    HttpClientModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
@@ -64,8 +77,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
   ],
   providers: [{
     provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
-  bootstrap: [ AppComponent ]
+    useClass: HashLocationStrategy,
+  }, HostService, AlertService, AuthGuard],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

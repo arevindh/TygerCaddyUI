@@ -1,0 +1,23 @@
+export interface Proxy {
+    name: String,
+    proxy_from: String,
+    proxy_to: String,
+    load_policy: String,
+    fail_timeout: String,
+    max_fails: Number,
+    max_conns: Number,
+    try_duration: Number,
+    try_interval: Number,
+    health_check: Number,
+    health_check_port: Number,
+    health_check_interval: Number,
+    health_check_timeout: Number,
+    keep_alive: Number,
+    timeout: Number,
+    without: Number,
+    exceptions: null,
+    insecure_skip_verify: Boolean,
+    websocket: Boolean,
+    transparent: Boolean,
+    host: Number
+}
