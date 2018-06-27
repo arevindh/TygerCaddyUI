@@ -30,12 +30,16 @@ export class UpdateComponent {
   page_title: string;
   type: string;
   id: number;
+  edit_enabled : boolean;
 
   setTitle(title, type) {
     this.page_title = title;
   }
 
   ngOnInit() {
+
+    this.edit_enabled = false;
+
     this.sub = this.route
       .data
       .subscribe(
@@ -46,29 +50,31 @@ export class UpdateComponent {
       this.id = +params['id'];
       if (this.id) {
         this.loadHostData()
+      }else{
+        this.loadDefault()
       }
     });
 
-
-    if (this.type == 'edit') {
-      this.loadHostData()
-    }
-    else {
-      this.loadDefault()
-    }
   }
 
   loadHostData() {
+    this.edit_enabled = false;
     this
       .hostService
       .getHost(this.id)
       .subscribe((data: Host) => {
         this.host = data;
+        console.log(this.host)
       });
+
+    
   }
 
   loadDefault() {
+    console.log('default loaded');
+    this.edit_enabled = true;
     this.host = {
+      id : null,
       host_name: "",
       root_path: "/",
       tls: true,
@@ -77,8 +83,17 @@ export class UpdateComponent {
       dns_provider: null,
       custom_ssl: false,
       custom_certs: [],
-      force_redirect_https: true
+      force_redirect_https: true,
+      proxy_set :[]
     } as Host;
+  }
+
+  isDisabled() : boolean{
+    return !this.edit_enabled;
+  }
+
+  toggle_edit(){
+    this.edit_enabled = !this.edit_enabled;
   }
 
   ngOnDestroy() {

@@ -16,7 +16,7 @@
              <div class="col-sm-6 col-lg-3" *ngFor="let host of hosts">
                 <div class="card">
                    <div class="card-body">
-                      <div class="text-primary h5"> <a   [routerLink]="['/hosts/edit/1'] "> {{host.host_name}} </a></div>
+                      <div class="text-primary h5"> <a   [routerLink]="['/hosts/edit/',host.id] "> {{host.host_name}} </a></div>
                       <div><i class="fa fa-check text-success" aria-hidden="true"></i> Enabled</div>
                       <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
                    </div>

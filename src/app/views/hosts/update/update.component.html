@@ -1,60 +1,106 @@
 <div class="animated fadeIn">
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header">
-            <strong>{{page_title}}</strong>
-          </div>
-          <div class="card-body">
-            <form action="" method="post" *ngIf="host"  (ngSubmit)="onSubmit()" #hostForm="ngForm">
-              <div class="form-group">
-                <label for="host_name">Hostname</label>
-                <input type="text" id="hostname" name="host_name"  [(ngModel)]="host.host_name" placeholder="Enter valid hostname eg: example.com" class="form-control">
-                <!-- <span class="help-block">Enter valid hostname</span> -->
-              </div>
-              <div class="form-group">
-                <label for="root_path">Root path</label>
-                <input type="text" id="rootpath" name="root_path"  [(ngModel)]="host.root_path" placeholder="Enter path eg : '/'" class="form-control">
-              </div>
-
-              <div class="form-group " >
-                <label class=" col-form-label" for="custom_ssl">SSL Provider</label>
-                  <select id="ssl_provider" [(ngModel)]="host.custom_ssl" name="custom_ssl"  class="form-control">
-                    <option value="false" >Let's Encrypt</option>
-                    <option value="true">Custom</option>
-                  </select>
-              </div>
-
-              <div class="form-group " *ngIf="!host.custom_ssl">
-                <label class=" col-form-label" for="staging">Let's Encrypt TLS config</label>
-                  <select id="ssl_provider" name="staging" [(ngModel)]="host.staging" class="form-control">
-                    <option value="true">Stagging</option>
-                    <option value="false">Production</option>
-                  </select>
-              </div>
-
-              <div class="form-group" *ngIf="host.custom_ssl">
-                <label for="nf-password">Custom Certificate</label>
-                <textarea id="custom_cert" rows="9" name="custom_cert" class="form-control"></textarea>
-                <span class="help-block">Paste Custom Certificate in pem format</span>
-              </div>
-              
-              <div class="form-group">
-                <div class="form-check form-check-inline mr-1">
-                  <input class="form-check-input" [(ngModel)]="host.force_redirect_https" type="checkbox" name="force_redirect_https" id="inline-checkbox1" value="option1">
-                  <label class="form-check-label" for="force_redirect_https">Force HTTPS</label>
-                </div>
-              </div>
-              <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
-              </div>
-            </form>
-          </div>
-        
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{page_title}}</strong>
         </div>
+        <div class="card-body">
+          <form action="" method="post" *ngIf="host" (ngSubmit)="onSubmit()" #hostForm="ngForm">
+            <div class="form-group">
+              <label for="host_name">Hostname</label>
+              <input [disabled]="isDisabled()" type="text" id="hostname" name="host_name" [(ngModel)]="host.host_name" placeholder="Enter valid hostname eg: example.com"
+                class="form-control">
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+            <div class="form-group">
+              <label for="root_path">Root path</label>
+              <input [disabled]="isDisabled()" type="text" id="rootpath" name="root_path" [(ngModel)]="host.root_path" placeholder="Enter path eg : '/'"
+                class="form-control">
+            </div>
+
+            <div class="form-group ">
+              <label class=" col-form-label" for="custom_ssl">SSL Provider</label>
+              <select [disabled]="isDisabled()" id="ssl_provider" [(ngModel)]="host.custom_ssl" name="custom_ssl" class="form-control">
+                <option value="false">Let's Encrypt</option>
+                <option value="true">Custom</option>
+              </select>
+            </div>
+
+            <div class="form-group " *ngIf="!host.custom_ssl">
+              <label class=" col-form-label" for="staging">Let's Encrypt TLS config</label>
+              <select [disabled]="isDisabled()" id="ssl_provider" name="staging" [(ngModel)]="host.staging" class="form-control">
+                <option value="true">Stagging</option>
+                <option value="false">Production</option>
+              </select>
+            </div>
+
+            <div class="form-group" *ngIf="host.custom_ssl">
+              <label for="nf-password">Custom Certificate</label>
+              <textarea [disabled]="isDisabled()" id="custom_cert" rows="9" name="custom_cert" class="form-control"></textarea>
+              <span class="help-block">Paste Custom Certificate in pem format</span>
+            </div>
+
+            <div class="form-group">
+              <div class="form-check form-check-inline mr-1">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="host.force_redirect_https" type="checkbox" name="force_redirect_https"
+                  id="inline-checkbox1" value="option1">
+                <label class="form-check-label" for="force_redirect_https">Force HTTPS</label>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button [disabled]="isDisabled()" type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="button" (click)="toggle_edit()" class="btn btn-sm btn-danger">
+                <i class="fa fa-ban"></i> Edit</button>
+            </div>
+          </form>
+        </div>
+
       </div>
     </div>
+    <div class="col-sm-8">
+      <div class="card">
+          <div class="card-header">
+              <strong>Poxy List</strong>
+            </div>
+        <div class="card-body">
+          <div class="row">
+            <ng-container *ngIf="host">
+              <div class="col-sm-6 col-lg-6" *ngFor="let proxy of host.proxy_set">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="text-primary h5">
+                      <a [routerLink]="['/hosts/edit/',host.id] "> {{proxy.name}} </a>
+                    </div>
+                    <div>
+                      <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
+                    </div>
+                    <div>Porxy from : {{proxy.proxy_from}} </div>
+                    <div>Proxy to : {{proxy.proxy_to}}</div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <div class="col-sm-6 col-lg-6">
+              <div class="card bg-primary text-white">
+                <div class="card-body  text-center">
+                  <div class="text-center">
+                    <a [routerLink]="['/hosts/add'] ">
+                      <i class="fa fa-plus fa-2x text-white"></i>
+                      <br />
+                    </a>
+                  </div>
+                  Add new
+                  <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/.card-->
+    </div>
   </div>
-  
+</div>
