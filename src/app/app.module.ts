@@ -42,13 +42,16 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
-import { HostService } from './services/host.service';
+import { HostService } from './services/host/host.service';
 
 import { FormsModule } from '@angular/forms';
 
-import { AlertService } from './services/alert.service';
+import { AlertService } from './services/alert/alert.service';
 
 import { AuthGuard } from './guards/auth-guard';
+import { ProxyService } from './services/proxy/proxy.service';
+
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -78,7 +81,7 @@ import { AuthGuard } from './guards/auth-guard';
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy,
-  }, HostService, AlertService, AuthGuard],
+  }, HostService, AlertService, AuthGuard, ProxyService, CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,189 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div  [ngClass]="{'col-sm-6': !is_new,'col-sm-12': is_new }">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{page_title}}</strong>
+          <span class=" float-right">
+            <button type="button" class="btn-sm btn-primary" (click)="isCollapsed = !isCollapsed"> {{ ( isCollapsed? 'Advanced' :'Basic' )}}
+            </button>
+          </span>
+        </div>
+
+        <div class="card-body">
+          <form action="" method="post" *ngIf="proxy" (ngSubmit)="onSubmit()" #hostForm="ngForm">
+
+            <div class="form-group">
+              <label for="name">Hostname</label>
+              <input [disabled]="isDisabled()" type="text" id="name" name="name" [(ngModel)]="proxy.name" placeholder="Proxy name" class="form-control">
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+            <div class="form-group">
+              <label for="proxy_from">Proxy from</label>
+              <input [disabled]="isDisabled()" type="text" id="proxy_from" name="proxy_from" [(ngModel)]="proxy.proxy_from" placeholder="Proxy from"
+                class="form-control">
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+
+            <div class="form-group">
+              <label for="proxy_to">Proxy to</label>
+              <input [disabled]="isDisabled()" type="text" id="proxy_to" name="proxy_to" [(ngModel)]="proxy.proxy_to" placeholder="" class="form-control">
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+
+            <div class="form-group">
+              <div class="form-check form-check-inline mr-1">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="proxy.insecure_skip_verify" type="checkbox" name="insecure_skip_verify"
+                  id="inline-checkbox1" value="false">
+                <label class="form-check-label" for="insecure_skip_verify">Ignore SSL Certificate</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-check form-check-inline mr-1">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="proxy.websocket" type="checkbox" name="websocket"
+                  id="inline-checkbox1" value="false">
+                <label class="form-check-label" for="websocket">Websocket Proxy</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-check form-check-inline mr-1">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="proxy.transparent" type="checkbox" name="transparent"
+                  id="inline-checkbox1" value="false">
+                <label class="form-check-label" for="transparent">Enable Transparent Proxy</label>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label for="single_host">host</label>
+              <select [disabled]="isDisabled()" class="form-control" id="host" name="host" [(ngModel)]="proxy.host">
+                <option *ngFor="let single_host of hosts" [value]="single_host.id">{{single_host.host_name}}</option>
+              </select>
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+
+
+
+            <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
+
+
+
+              <div class="form-group">
+                <label for="load_policy">Load policy</label>
+                <input [disabled]="isDisabled()" type="text" id="load_policy" name="load_policy" [(ngModel)]="proxy.load_policy" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="fail_timeout">Fail timeout</label>
+                <input [disabled]="isDisabled()" type="text" id="fail_timeout" name="fail_timeout" [(ngModel)]="proxy.fail_timeout" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="max_fails">Max fails</label>
+                <input [disabled]="isDisabled()" type="text" id="max_fails" name="max_fails" [(ngModel)]="proxy.max_fails" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="max_conns">Max connections</label>
+                <input [disabled]="isDisabled()" type="text" id="max_conns" name="max_conns" [(ngModel)]="proxy.max_conns" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="try_duration">try_duration</label>
+                <input [disabled]="isDisabled()" type="text" id="try_duration" name="try_duration" [(ngModel)]="proxy.try_duration" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="try_interval">try_interval</label>
+                <input [disabled]="isDisabled()" type="text" id="try_interval" name="try_interval" [(ngModel)]="proxy.try_interval" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="health_check">health_check</label>
+                <input [disabled]="isDisabled()" type="text" id="health_check" name="health_check" [(ngModel)]="proxy.health_check" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="health_check_port">health_check_port</label>
+                <input [disabled]="isDisabled()" type="text" id="health_check_port" name="health_check_port" [(ngModel)]="proxy.health_check_port"
+                  placeholder="" class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="health_check_interval">health_check_interval</label>
+                <input [disabled]="isDisabled()" type="text" id="health_check_interval" name="health_check_interval" [(ngModel)]="proxy.health_check_interval"
+                  placeholder="" class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="health_check_timeout">health_check_timeout</label>
+                <input [disabled]="isDisabled()" type="text" id="health_check_timeout" name="health_check_timeout" [(ngModel)]="proxy.health_check_timeout"
+                  placeholder="" class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="keep_alive">keep_alive</label>
+                <input [disabled]="isDisabled()" type="text" id="keep_alive" name="keep_alive" [(ngModel)]="proxy.keep_alive" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="timeout">timeout</label>
+                <input [disabled]="isDisabled()" type="text" id="timeout" name="timeout" [(ngModel)]="proxy.timeout" placeholder="" class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="without">without</label>
+                <input [disabled]="isDisabled()" type="text" id="without" name="without" [(ngModel)]="proxy.without" placeholder="" class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+              <div class="form-group">
+                <label for="exceptions">exceptions</label>
+                <input [disabled]="isDisabled()" type="text" id="exceptions" name="exceptions" [(ngModel)]="proxy.exceptions" placeholder=""
+                  class="form-control">
+                <!-- <span class="help-block">Enter valid hostname</span> -->
+              </div>
+
+            </div>
+
+            <div class="card-footer">
+              <button [disabled]="isDisabled()" type="submit" class="btn btn-primary">
+                <i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="button" (click)="toggle_edit()" class="btn btn-danger" *ngIf="!is_new">
+                <i class="fa fa-ban"></i> Edit</button>
+
+                <a *ngIf="proxy.host" [routerLink]="['/hosts/edit/',proxy.host] "> Go to host</a>
+
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -15,17 +15,17 @@ export const navItems = [
   },
   {
     name :'Proxy',
-    url :'/base',
+    url :'/proxy',
     icon:'fa fa-exchange',
     children: [
       {
         name: 'View',
-        url: '/base/cards',
+        url: '/proxy/view',
         icon: 'fa fa-list'
       },
       {
         name: 'Add',
-        url: '/base/cards',
+        url: '/proxy/add',
         icon: 'fa fa-plus-circle'
       }
     ]

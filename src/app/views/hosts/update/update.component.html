@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
 
   <div class="row">
-    <div class="col-sm-4">
+    <div [ngClass]="{'col-sm-4': !is_new,'col-sm-12': is_new }">
       <div class="card">
         <div class="card-header">
           <strong>{{page_title}}</strong>
@@ -60,11 +60,11 @@
 
       </div>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8" *ngIf="!is_new && host">
       <div class="card">
-          <div class="card-header">
-              <strong>Poxy List</strong>
-            </div>
+        <div class="card-header">
+          <strong>Poxy List</strong>
+        </div>
         <div class="card-body">
           <div class="row">
             <ng-container *ngIf="host">
@@ -72,7 +72,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="text-primary h5">
-                      <a [routerLink]="['/hosts/edit/',host.id] "> {{proxy.name}} </a>
+                      <a [routerLink]="['/proxy/edit/',proxy.id] "> {{proxy.name}} </a>
                     </div>
                     <div>
                       <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
@@ -87,7 +87,7 @@
               <div class="card bg-primary text-white">
                 <div class="card-body  text-center">
                   <div class="text-center">
-                    <a [routerLink]="['/hosts/add'] ">
+                    <a [routerLink]="['/proxy/add',{ host : host.id}] ">
                       <i class="fa fa-plus fa-2x text-white"></i>
                       <br />
                     </a>

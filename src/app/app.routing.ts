@@ -74,6 +74,10 @@ export const routes: Routes = [
         loadChildren: './views/hosts/hosts.module#HostsModule'
       },
       {
+        path: 'proxy',
+        loadChildren: './views/proxy/proxy.module#ProxyModule'
+      },
+      {
         path: 'icons',
         loadChildren: './views/icons/icons.module#IconsModule'
       },

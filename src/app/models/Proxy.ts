@@ -1,4 +1,5 @@
 export interface Proxy {
+    id: number,
     name: String,
     proxy_from: String,
     proxy_to: String,

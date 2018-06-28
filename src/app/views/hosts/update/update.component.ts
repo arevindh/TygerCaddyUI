@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 
-import { HostService } from '../../../services/host.service';
+import { HostService } from '../../../services/host/host.service';
 import { Host } from '../../../models/Host';
 
 @Component({
@@ -30,7 +30,8 @@ export class UpdateComponent {
   page_title: string;
   type: string;
   id: number;
-  edit_enabled : boolean;
+  edit_enabled: boolean;
+  is_new: boolean = true;
 
   setTitle(title, type) {
     this.page_title = title;
@@ -49,8 +50,9 @@ export class UpdateComponent {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
       if (this.id) {
-        this.loadHostData()
-      }else{
+        this.loadHostData();
+        this.is_new = false;
+      } else {
         this.loadDefault()
       }
     });
@@ -67,14 +69,14 @@ export class UpdateComponent {
         console.log(this.host)
       });
 
-    
+
   }
 
   loadDefault() {
     console.log('default loaded');
     this.edit_enabled = true;
     this.host = {
-      id : null,
+      id: null,
       host_name: "",
       root_path: "/",
       tls: true,
@@ -84,29 +86,40 @@ export class UpdateComponent {
       custom_ssl: false,
       custom_certs: [],
       force_redirect_https: true,
-      proxy_set :[]
+      proxy_set: []
     } as Host;
   }
 
-  isDisabled() : boolean{
+  isDisabled(): boolean {
     return !this.edit_enabled;
   }
 
-  toggle_edit(){
+  toggle_edit() {
     this.edit_enabled = !this.edit_enabled;
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  onSubmit(){
-    console.log(this.host);
-    this
-    .hostService
-    .addHost(this.host)
-    .subscribe((data: Host) => {
-      this.host = data;
-      this.page_title = 'Edit host';
-    });
+  onSubmit() {
+
+    if (this.is_new) {
+      this
+        .hostService
+        .addHost(this.host)
+        .subscribe((data: Host) => {
+          this.host = data;
+          this.page_title = 'Edit host';
+        });
+    } else {
+      this
+        .hostService
+        .updateHost(this.host, this.host.id)
+        .subscribe((data: Host) => {
+          this.host = data;
+          this.page_title = 'Edit host';
+        });
+    }
+
   }
 }
