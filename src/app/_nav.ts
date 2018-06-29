@@ -13,27 +13,11 @@ export const navItems = [
     title: true,
     name: 'TygerCaddy'
   },
+
   {
-    name :'Proxy',
-    url :'/proxy',
-    icon:'fa fa-exchange',
-    children: [
-      {
-        name: 'View',
-        url: '/proxy/view',
-        icon: 'fa fa-list'
-      },
-      {
-        name: 'Add',
-        url: '/proxy/add',
-        icon: 'fa fa-plus-circle'
-      }
-    ]
-  },
-  {
-    name :'Hosts',
-    url :'/hosts',
-    icon:'fa fa-database',
+    name: 'Hosts',
+    url: '/hosts',
+    icon: 'fa fa-database',
     children: [
       {
         name: 'View',
@@ -43,6 +27,23 @@ export const navItems = [
       {
         name: 'Add',
         url: '/hosts/add',
+        icon: 'fa fa-plus-circle'
+      }
+    ]
+  },
+  {
+    name: 'Proxy',
+    url: '/proxy',
+    icon: 'fa fa-exchange',
+    children: [
+      {
+        name: 'View',
+        url: '/proxy/view',
+        icon: 'fa fa-list'
+      },
+      {
+        name: 'Add',
+        url: '/proxy/add',
         icon: 'fa fa-plus-circle'
       }
     ]
@@ -72,9 +73,9 @@ export const navItems = [
   },
 
   {
-    name :'Logs',
-    url :'/base',
-    icon:'fa fa-file-text',
+    name: 'Logs',
+    url: '/base',
+    icon: 'fa fa-file-text',
     children: [
       {
         name: 'Tyger',

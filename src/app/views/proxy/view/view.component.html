@@ -1,37 +1,45 @@
 <div class="animated fadeIn">
   <div class="card">
-     <div class="card-body">
-        <div class="row">
-           
-           <div class="col-sm-6 col-lg-3" *ngFor="let proxy of proxies">
-            <div class="card">
-              <div class="card-body">
-                <div class="text-primary h5">
-                  <a [routerLink]="['/proxy/edit/',proxy.id] "> {{proxy.name}} </a>
-                </div>
-                <div>
-                  <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
-                </div>
-                <div>Porxy from : {{proxy.proxy_from}} </div>
-                <div>Proxy to : {{proxy.proxy_to}}</div>
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-sm-6 col-lg-3" *ngFor="let proxy of proxies">
+          <div class="card card-accent-info ">
+            <div class="card-header">
+              <a [routerLink]="['/proxy/edit/',proxy.id] "> {{proxy.name}} </a>
+              <span class="float-right">
+                <a (click)="deleteProxy(proxy)"> 
+                  <i class="fa fa-trash text-danger"></i>
+                </a>
+              </span>
+            </div>
+            <div class="card-body">
+              <!-- <div>
+                <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
+              </div> -->
+              <div>Porxy from : {{proxy.proxy_from}} </div>
+              <div>Proxy to : {{proxy.proxy_to}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card bg-primary text-white">
+            <div class="card-body  text-center">
+              <div class="text-center">
+                <a [routerLink]="['/proxy/add'] ">
+                  <i class="fa fa-plus fa-2x text-white"></i>
+                  <br />
+                </a>
               </div>
+              Add new
+              <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
             </div>
-           </div>
-           <div class="col-sm-6 col-lg-3">
-            <div class="card bg-primary text-white">
-               <div class="card-body  text-center">
-                 <div class="text-center">
-                    <a   [routerLink]="['/proxy/add'] "><i class="fa fa-plus fa-2x text-white"></i> <br /></a>
-                 </div>
-                 Add new
-                  <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
-               </div>
-            </div>
-       </div>
-          
-        </div> 
-     </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
   <!--/.card-->
-  
+
 </div>

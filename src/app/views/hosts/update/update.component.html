@@ -70,13 +70,19 @@
             <ng-container *ngIf="host">
               <div class="col-sm-6 col-lg-6" *ngFor="let proxy of host.proxy_set">
                 <div class="card">
+                  <div class="card-header">
+                    <a [routerLink]="['/proxy/edit/',proxy.id,{host :host.id}] "> {{proxy.name}} </a>
+                    <span class="float-right">
+                      {{(proxy.transparent? 'T': '')}} {{(proxy.insecure_skip_verify? 'I': '')}} {{(proxy.websocket? 'W': '')}}
+                      <a (click)="deleteProxy(proxy)">
+                        <i class="fa fa-trash text-danger"></i>
+                      </a>
+                    </span>
+                  </div>
                   <div class="card-body">
-                    <div class="text-primary h5">
-                      <a [routerLink]="['/proxy/edit/',proxy.id] "> {{proxy.name}} </a>
-                    </div>
-                    <div>
+                    <!-- <div>
                       <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
-                    </div>
+                    </div> -->
                     <div>Porxy from : {{proxy.proxy_from}} </div>
                     <div>Proxy to : {{proxy.proxy_to}}</div>
                   </div>

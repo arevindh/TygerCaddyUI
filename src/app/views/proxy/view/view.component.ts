@@ -24,8 +24,23 @@ export class ViewComponent implements OnInit {
       .getProxies()
       .subscribe((data: Proxy[]) => {
         this.proxies = data;
-        console.log(data);
+        console.log('loaded proxy list');
       });
+  }
+
+  deleteProxy(proxy) {
+    this
+      .proxyservice
+      .deleteProxy(proxy.id)
+      .subscribe();
+
+    console.log('deleted');
+    this.removeFromList(proxy);
+
+  }
+
+  removeFromList(proxy) {
+    this.proxies = this.proxies.filter(item => item !== proxy);
   }
 
 }

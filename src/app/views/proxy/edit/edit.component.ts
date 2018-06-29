@@ -143,6 +143,7 @@ export class EditComponent implements OnInit {
         .subscribe((data: Proxy) => {
           this.proxy = data;
           this.page_title = 'Edit Proxy';
+          this.router.navigate([`/proxy/edit/${data.id}/`]);
         });
 
     }

@@ -11,9 +11,9 @@ import { Host } from '../../../models/Host';
 })
 export class ViewComponent implements OnInit {
 
-  hosts : Host[];
+  hosts: Host[];
 
-  constructor(private hostService: HostService) { }
+  constructor(private hostService: HostService, private router: Router) { }
 
   ngOnInit() {
     this
@@ -21,7 +21,17 @@ export class ViewComponent implements OnInit {
       .getHosts()
       .subscribe((data: Host[]) => {
         this.hosts = data;
-    });
+      });
+  }
+
+
+  deleteHost(host: Host) {
+    this
+      .hostService
+      .deleteHost(host.id)
+      .subscribe();
+    console.log("deleted " + host.host_name);
+    this.hosts = this.hosts.filter(item => item !== host);
   }
 
 }

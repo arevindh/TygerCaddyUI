@@ -42,11 +42,14 @@ export class HostService {
   }
 
   updateHost(host: Host, host_id) {
-    this.cookieValue = this.cookieService.get('csrftoken');
-    console.log(this.cookieValue);
     return this
       .http
       .put(`${this.url}/${host_id}/`, host, this.authHeader())
+  }
+  deleteHost(host_id) {
+    return this
+      .http
+      .delete(`${this.url}/${host_id}/`, this.authHeader())
   }
 
   validateToken() {

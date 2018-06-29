@@ -50,6 +50,14 @@ export class ProxyService {
       .put(`${this.url}/${proxy_id}/`, proxy, this.authHeader())
   }
 
+  deleteProxy(proxy_id) {
+    this.cookieValue = this.cookieService.get('csrftoken');
+    console.log(this.cookieValue);
+    return this
+      .http
+      .delete(`${this.url}/${proxy_id}/`, this.authHeader())
+  }
+
   validateToken() {
 
   }
