@@ -36,8 +36,7 @@ export class AuthenticationService {
         this.cookieValue = this.cookieService.get('csrftoken');
         return {
           headers: new HttpHeaders({
-            'X-CSRFToken': this.cookieValue,
-            'Authorization': `Token ${this.token}`
+            'X-CSRFToken': this.cookieValue
           })
         };
       }

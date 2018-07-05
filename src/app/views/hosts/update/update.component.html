@@ -31,7 +31,7 @@
             <div class="form-group " *ngIf="!host.custom_ssl">
               <label class=" col-form-label" for="staging">Let's Encrypt TLS config</label>
               <select [disabled]="isDisabled()" id="ssl_provider" name="staging" [(ngModel)]="host.staging" class="form-control">
-                <option value="true">Stagging</option>
+                <option value="true">Staging</option>
                 <option value="false">Production</option>
               </select>
             </div>

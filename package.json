@@ -1,21 +1,25 @@
 {
-  "name": "@coreui/coreui-free-angular-admin-template",
+  "name": "TygerCaddy",
   "version": "2.0.0-rc.1",
-  "description": "CoreUI Free Angular 2+ Admin Template",
+  "description": "A Reverse Proxy GUI and App for Caddy Server",
   "author": {
-    "name": "Łukasz Holeczek",
-    "url": "http://holeczek.pl",
-    "github": "https://github.com/mrholek",
+    "name": "morph1904",
+    "url": "http://tygercaddy.com",
+    "github": "https://github.com/morph1904",
     "twitter": "https://twitter.com/lukaszholeczek"
   },
   "contributors": [
     {
-      "name": "Andrzej Kopański",
-      "url": "https://github.com/xidedix"
+      "name": "Siddhu",
+      "url": "https://github.com/arevindh"
+    },
+    {
+      "name": "sparky8251",
+      "url": "https://github.com/sparky8251"
     }
   ],
-  "homepage": "https://coreui.io/angular",
-  "copyright": "Copyright 2018 creativeLabs Łukasz Holeczek",
+  "homepage": "https://tygercaddy.com/",
+  "copyright": "Copyright 2018 morph1904",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -66,6 +70,7 @@
     "@types/jasmine": "^2.8.8",
     "@types/jasminewd2": "^2.0.3",
     "@types/node": "^10.3.4",
+    "angular-cli-builders": "^1.0.5",
     "codelyzer": "^4.3.0",
     "jasmine-core": "^3.1.0",
     "jasmine-spec-reporter": "^4.2.1",
