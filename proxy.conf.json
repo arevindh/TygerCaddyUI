@@ -1,12 +1,12 @@
 {
     "/api/*": {
-        "target": "http://10.0.7.8:9090",
+        "target": "http://localhost:9090",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
     "/api-auth/*": {
-        "target": "http://10.0.7.8:9090",
+        "target": "http://localhost:9090",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
