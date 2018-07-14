@@ -35,7 +35,7 @@ export class HostService {
   }
 
   addHost(host: Host) {
-    console.log(this.cookieValue);
+    
     return this
       .http
       .post(`${this.url}/`, host, this.authHeader())

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { HostService } from '../../../services/host/host.service';
 import { Host } from '../../../models/Host';
 import { ProxyService } from '../../../services/proxy/proxy.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: 'update.component.html'
@@ -20,7 +21,13 @@ export class UpdateComponent {
 
   host: Host;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private hostService: HostService, private proxyservice: ProxyService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private hostService: HostService,
+    private proxyservice: ProxyService,
+    private toastr: ToastrService,
+    private router: Router) {
     this.ssl_provider = "letsencrypt";
   }
 
@@ -112,16 +119,6 @@ export class UpdateComponent {
     // this.host = this.hosts.filter(item => item !== host);
   }
 
-  deleteProxy(proxy) {
-    this
-      .proxyservice
-      .deleteProxy(proxy.id)
-      .subscribe();
-    console.log('deleted');
-    this.host.proxy_set = this.host.proxy_set.filter(item => item !== proxy);
-
-  }
-
   onSubmit() {
 
     if (this.is_new) {
@@ -131,8 +128,12 @@ export class UpdateComponent {
         .subscribe((data: Host) => {
           this.host = data;
           this.page_title = 'Edit host';
-          this.router.navigate([`/hosts/edit/${data.id}/` ]);
-        });
+          this.router.navigate([`/hosts/edit/${data.id}/`]);
+          this.toastr.success('Host Updated!', 'Success');
+        },
+          error => {
+            this.toastr.error('Unable to update Host, Please check the values!', 'Failed');
+          });
 
 
     } else {
@@ -142,7 +143,11 @@ export class UpdateComponent {
         .subscribe((data: Host) => {
           this.host = data;
           this.page_title = 'Edit host';
-        });
+          this.toastr.success('Host Added!', 'Success');
+        },
+          error => {
+            this.toastr.error('Unable to add Host, Please check the values!', 'Failed');
+          });
     }
 
   }

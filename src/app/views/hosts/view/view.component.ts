@@ -5,6 +5,7 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 import { HostService } from '../../../services/host/host.service';
 import { Host } from '../../../models/Host';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: 'view.component.html'
@@ -13,7 +14,7 @@ export class ViewComponent implements OnInit {
 
   hosts: Host[];
 
-  constructor(private hostService: HostService, private router: Router) { }
+  constructor(private hostService: HostService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this
@@ -29,8 +30,15 @@ export class ViewComponent implements OnInit {
     this
       .hostService
       .deleteHost(host.id)
-      .subscribe();
-    console.log("deleted " + host.host_name);
+      .subscribe(result => {
+        this.removeFromList(host);
+        this.toastr.success('Host deleted!', 'Success');
+      }, error => {
+        this.toastr.error('Unable to add Host', 'Failed');
+      });
+
+  }
+  removeFromList(host) {
     this.hosts = this.hosts.filter(item => item !== host);
   }
 

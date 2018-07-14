@@ -12,6 +12,7 @@ import { ProxyService } from '../../../services/proxy/proxy.service';
 import { Proxy } from '../../../models/Proxy';
 import { HostService } from '../../../services/host/host.service';
 import { Host } from '../../../models/Host';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit',
@@ -33,6 +34,7 @@ export class EditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient,
     private proxyservice: ProxyService,
     private hostService: HostService,
+    private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit() {
@@ -137,7 +139,13 @@ export class EditComponent implements OnInit {
         .subscribe((data: Proxy) => {
           this.proxy = data;
           this.page_title = 'Edit Proxy';
-        });
+          this.toastr.success('Proxy Updated!', 'Success');
+        },
+          error => {
+            this.toastr.error('Unable to update Proxy, Please check the values!', 'Failed');
+          });
+
+
     }
     else {
       this
@@ -147,7 +155,11 @@ export class EditComponent implements OnInit {
           this.proxy = data;
           this.page_title = 'Edit Proxy';
           this.router.navigate([`/proxy/edit/${data.id}/`]);
-        });
+          this.toastr.success('Proxy Added!', 'Success');
+        },
+          error => {
+            this.toastr.error('Unable to add Proxy, Please check the values!', 'Failed');
+          });
 
     }
   }

@@ -36,7 +36,6 @@ export class ProxyService {
   }
 
   addProxy(proxy: Proxy) {
-    console.log(this.cookieValue);
     return this
       .http
       .post(`${this.url}/`, proxy, this.authHeader())
@@ -44,7 +43,6 @@ export class ProxyService {
 
   updateProxy(proxy: Proxy, proxy_id) {
     this.cookieValue = this.cookieService.get('csrftoken');
-    console.log(this.cookieValue);
     return this
       .http
       .put(`${this.url}/${proxy_id}/`, proxy, this.authHeader())
@@ -52,7 +50,6 @@ export class ProxyService {
 
   deleteProxy(proxy_id) {
     this.cookieValue = this.cookieService.get('csrftoken');
-    console.log(this.cookieValue);
     return this
       .http
       .delete(`${this.url}/${proxy_id}/`, this.authHeader())

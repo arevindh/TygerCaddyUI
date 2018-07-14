@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProxyService } from '../../../services/proxy/proxy.service';
 import { Proxy } from '../../../models/Proxy';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view',
@@ -12,7 +12,7 @@ export class ViewComponent implements OnInit {
 
   proxies: Proxy[];
 
-  constructor(private proxyservice: ProxyService) { }
+  constructor(private proxyservice: ProxyService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.loadProxyList();
@@ -32,11 +32,12 @@ export class ViewComponent implements OnInit {
     this
       .proxyservice
       .deleteProxy(proxy.id)
-      .subscribe();
-
-    console.log('deleted');
-    this.removeFromList(proxy);
-
+      .subscribe(result => {
+        this.removeFromList(proxy);
+        this.toastr.success('Proxy deleted!', 'Success');
+      }, error => {
+        this.toastr.error('Unable to add Proxy', 'Failed');
+      });
   }
 
   removeFromList(proxy) {

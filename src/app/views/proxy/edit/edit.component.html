@@ -15,7 +15,7 @@
           <form action="" method="post" *ngIf="proxy" (ngSubmit)="onSubmit()" #hostForm="ngForm">
 
             <div class="form-group">
-              <label for="name">Hostname</label>
+              <label for="name">Proxy Name</label>
               <input [disabled]="isDisabled()" type="text" id="name" name="name" [(ngModel)]="proxy.name" placeholder="Proxy name" class="form-control">
               <!-- <span class="help-block">Enter valid hostname</span> -->
             </div>
@@ -184,6 +184,7 @@
 
       </div>
     </div>
+  
 
   </div>
 </div>

@@ -24,8 +24,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-prod" :"ng serve --proxy-config proxy.conf.json --configuration=production",
-    "start-dev" :"ng serve --proxy-config proxy.conf.json",
+    "start-prod": "ng serve --proxy-config proxy.conf.json --configuration=production",
+    "start-dev": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "build-prod": "ng build --output-hashing none --named-chunks false --configuration=production --build-optimizer --base-href /v2/ --deploy-url /assets/angular/",
     "test": "ng test",
@@ -59,6 +59,7 @@
     "ngx-bootstrap": "^3.0.1",
     "ngx-cookie-service": "^1.0.10",
     "ngx-perfect-scrollbar": "^6.2.0",
+    "ngx-toastr": "^8.8.0",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "simple-line-icons": "^2.4.1",

@@ -14,6 +14,7 @@ import { ProxyService } from '../../../services/proxy/proxy.service';
 import { Proxy } from '../../../models/Proxy';
 import { HostService } from '../../../services/host/host.service';
 import { Host } from '../../../models/Host';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit',
@@ -37,6 +38,7 @@ export class EditComponent implements OnInit {
     private proxyservice: ProxyService,
     private hostService: HostService,
     private headerservice: HeaderService,
+    private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit() {
@@ -59,11 +61,11 @@ export class EditComponent implements OnInit {
     });
 
     this
-    .proxyservice
-    .getProxies()
-    .subscribe((data: Proxy[]) => {
-      this.proxy = data;
-    });
+      .proxyservice
+      .getProxies()
+      .subscribe((data: Proxy[]) => {
+        this.proxy = data;
+      });
   }
 
   loadHeaderData() {
@@ -113,7 +115,7 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.header);
+    // console.log(this.header);
 
     if (!this.is_new) {
       this
@@ -122,7 +124,13 @@ export class EditComponent implements OnInit {
         .subscribe((data: Header) => {
           this.header = data;
           this.page_title = 'Edit Header';
-        });
+          this.toastr.success('Header Updated!', 'Success');
+        },
+          error => {
+            this.toastr.error('Unable to update Header, Please check the values!', 'Failed');
+          }
+        );
+
     }
     else {
       this
@@ -132,7 +140,11 @@ export class EditComponent implements OnInit {
           this.header = data;
           this.page_title = 'Edit header';
           this.router.navigate([`/headers/edit/${data.id}/`]);
-        });
+          this.toastr.success('Header Added!', 'Success');
+        },
+          error => {
+            this.toastr.error('Unable to add Header, Please check the values!', 'Failed');
+          });
 
     }
   }

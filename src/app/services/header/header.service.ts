@@ -37,7 +37,7 @@ export class HeaderService {
   }
 
   addHeader(header: Header) {
-    console.log(this.cookieValue);
+    
     return this
       .http
       .post(`${this.url}/`, header, this.authHeader())
@@ -45,7 +45,7 @@ export class HeaderService {
 
   updateHeader(header: Header, header_id) {
     this.cookieValue = this.cookieService.get('csrftoken');
-    console.log(this.cookieValue);
+    
     return this
       .http
       .put(`${this.url}/${header_id}/`, header, this.authHeader())
@@ -53,7 +53,7 @@ export class HeaderService {
 
   deleteHeader(header_id) {
     this.cookieValue = this.cookieService.get('csrftoken');
-    console.log(this.cookieValue);
+    
     return this
       .http
       .delete(`${this.url}/${header_id}/`, this.authHeader())

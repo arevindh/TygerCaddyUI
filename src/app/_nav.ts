@@ -51,7 +51,7 @@ export const navItems = [
   {
     name: 'Header',
     url: '/headers',
-    icon: 'fa fa-exchange',
+    icon: 'fa fa-header',
     children: [
       {
         name: 'View',

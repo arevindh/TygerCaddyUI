@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../../services/header/header.service';
 import { Header } from '../../../models/Header';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
@@ -12,7 +12,9 @@ export class ViewComponent implements OnInit {
 
   headers: Header[];
 
-  constructor(private headerservice: HeaderService) { }
+  constructor(
+    private headerservice: HeaderService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.loadProxyList();
@@ -32,10 +34,14 @@ export class ViewComponent implements OnInit {
     this
       .headerservice
       .deleteHeader(header.id)
-      .subscribe();
+      .subscribe(result => {
+        this.removeFromList(header);
+        this.toastr.success('Header deleted!', 'Success');
+      }, error => {
+        this.toastr.error('Unable to delete header', 'Failed');
+      });
 
-    console.log('deleted');
-    this.removeFromList(header);
+
 
   }
 

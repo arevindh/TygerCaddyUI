@@ -20,6 +20,9 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -68,7 +71,12 @@ import { CookieService } from 'ngx-cookie-service';
     TabsModule.forRoot(),
     ChartsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right'
+    }), // ToastrModule added
   ],
   declarations: [
     AppComponent,
