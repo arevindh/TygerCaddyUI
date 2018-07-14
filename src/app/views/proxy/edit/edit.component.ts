@@ -30,7 +30,10 @@ export class EditComponent implements OnInit {
   is_new: boolean = true;
   to_host: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private proxyservice: ProxyService, private hostService: HostService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient,
+    private proxyservice: ProxyService,
+    private hostService: HostService,
+    private router: Router) { }
 
   ngOnInit() {
 

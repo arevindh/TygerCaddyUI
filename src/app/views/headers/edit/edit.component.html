@@ -1,0 +1,67 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div [ngClass]="{'col-sm-6': !is_new,'col-sm-12': is_new }">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{page_title}}</strong>
+        </div>
+
+        <div class="card-body">
+          <form action="" method="post" *ngIf="header" (ngSubmit)="onSubmit()" #hostForm="ngForm">
+
+            <div class="form-group">
+              <label for="name">Header</label>
+              <input [disabled]="isDisabled()" type="text" id="header" name="header" [(ngModel)]="header.header" placeholder="Header name"
+                class="form-control">
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+            <div class="form-group">
+              <label for="proxy_from">Value</label>
+              <input [disabled]="isDisabled()" type="text" id="value" name="value" [(ngModel)]="header.value" placeholder="header value"
+                class="form-control">
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+
+
+            <div class="form-group">
+              <div class="form-check form-check-inline mr-1">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="header.upstream" type="checkbox" name="upstream" id="upstream"
+                  value="false">
+                <label class="form-check-label" for="upstream">Upstream</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-check form-check-inline mr-1">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="header.downstream" type="checkbox" name="downstream"
+                  id="downstream" value="false">
+                <label class="form-check-label" for="downstream">Downstream</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="single_host">Proxy</label>
+              <select [disabled]="isDisabled()" class="form-control" id="proxy" name="proxy" [(ngModel)]="header.proxy">
+                <option *ngFor="let single_proxy of proxy" [value]="single_proxy.id">{{single_proxy.name}}</option>
+              </select>
+              <!-- <span class="help-block">Enter valid hostname</span> -->
+            </div>
+
+            <div class="card-footer">
+              <button [disabled]="isDisabled()" type="submit" class="btn btn-primary">
+                <i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="button" (click)="toggle_edit()" class="btn btn-danger" *ngIf="!is_new">
+                <i class="fa fa-ban"></i> Edit</button>
+
+              <a *ngIf="header.proxy" [routerLink]="['/proxy/edit/',header.proxy] "> Go to proxy</a>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

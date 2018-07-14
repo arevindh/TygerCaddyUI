@@ -1,0 +1,55 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-sm-6 col-lg-3" *ngFor="let header of headers">
+          <div class="card card-accent-info ">
+            <div class="card-header">
+              <a [routerLink]="['/headers/edit/',header.id] "> {{header.value}} </a>
+              <span class="float-right">
+
+                <i *ngIf="header.downstream" class="fa fa-arrow-circle-down text-primary"></i>
+
+                &nbsp;
+
+                <i *ngIf="header.upstream" class="fa fa-arrow-circle-up text-primary"></i>
+
+                &nbsp;
+                <a (click)="deleteHeader(header)">
+                  <i class="fa fa-trash text-danger"></i>
+                </a>
+
+              </span>
+            </div>
+            <div class="card-body">
+              <!-- <div>
+                <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
+              </div> -->
+              <div>Value : {{header.value}}</div>
+              <!-- <input type="checkbox" [(ngModel)]="header.upstream" [disabled]/> Upstream
+              <input type="checkbox" [(ngModel)]="header.downstream" [disabled]/> Downstream -->
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card bg-primary text-white">
+            <div class="card-body  text-center">
+              <div class="text-center">
+                <a [routerLink]="['/headers/add'] ">
+                  <i class="fa fa-plus fa-2x text-white"></i>
+                  <br />
+                </a>
+              </div>
+              Add new
+              <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--/.card-->
+
+</div>

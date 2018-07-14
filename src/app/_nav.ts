@@ -48,6 +48,23 @@ export const navItems = [
       }
     ]
   },
+  {
+    name: 'Header',
+    url: '/headers',
+    icon: 'fa fa-exchange',
+    children: [
+      {
+        name: 'View',
+        url: '/headers/view',
+        icon: 'fa fa-list'
+      },
+      {
+        name: 'Add',
+        url: '/headers/add',
+        icon: 'fa fa-plus-circle'
+      }
+    ]
+  },
 
   {
     title: true,

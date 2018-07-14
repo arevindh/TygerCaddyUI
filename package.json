@@ -1,5 +1,5 @@
 {
-  "name": "TygerCaddy",
+  "name": "tygercaddy",
   "version": "2.0.0-rc.1",
   "description": "A Reverse Proxy GUI and App for Caddy Server",
   "author": {
