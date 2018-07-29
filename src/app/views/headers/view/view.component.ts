@@ -40,9 +40,6 @@ export class ViewComponent implements OnInit {
       }, error => {
         this.toastr.error('Unable to delete header', 'Failed');
       });
-
-
-
   }
 
   removeFromList(header) {

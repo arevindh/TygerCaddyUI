@@ -12,6 +12,9 @@ import { ProxyService } from '../../../services/proxy/proxy.service';
 import { Proxy } from '../../../models/Proxy';
 import { HostService } from '../../../services/host/host.service';
 import { Host } from '../../../models/Host';
+import { HeaderService } from '../../../services/header/header.service';
+import { Header } from '../../../models/Header';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -34,6 +37,7 @@ export class EditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient,
     private proxyservice: ProxyService,
     private hostService: HostService,
+    private headerservice: HeaderService,
     private toastr: ToastrService,
     private router: Router) { }
 
@@ -75,10 +79,8 @@ export class EditComponent implements OnInit {
       .subscribe((data: Proxy) => {
         this.proxy = data;
         console.log(this.proxy);
-        this.page_title = "Proxy Details "
+        this.page_title = "Proxy Details"
       });
-
-
   }
 
   loadDefault(fwd_host = null) {
@@ -107,7 +109,8 @@ export class EditComponent implements OnInit {
       insecure_skip_verify: false,
       websocket: false,
       transparent: false,
-      host: fwd_host
+      host: fwd_host,
+      header_set: null
     } as Proxy;
   }
 
@@ -168,6 +171,30 @@ export class EditComponent implements OnInit {
     this.page_title = title;
   }
 
+
+  deleteHeader(header) {
+    this
+      .headerservice
+      .deleteHeader(header.id)
+      .subscribe(result => {
+        this.loadHostData()
+        this.toastr.success('Header deleted!', 'Success');
+      }, error => {
+        this.toastr.error('Unable to delete header', 'Failed');
+      });
+  }
+
+  deleteProxy(proxy) {
+    this
+      .proxyservice
+      .deleteProxy(proxy.id)
+      .subscribe(result => {
+        this.toastr.success('Proxy deleted!', 'Success');
+        this.router.navigate(['/proxy/']);
+      }, error => {
+        this.toastr.error('Unable to add Proxy', 'Failed');
+      });
+  }
 
 
 

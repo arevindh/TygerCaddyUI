@@ -1,11 +1,15 @@
 <div class="animated fadeIn">
 
   <div class="row">
-    <div  [ngClass]="{'col-sm-6': !is_new,'col-sm-12': is_new }">
+    <div [ngClass]="{'col-sm-6': !is_new,'col-sm-12': is_new }">
       <div class="card">
         <div class="card-header">
           <strong>{{page_title}}</strong>
           <span class=" float-right">
+            <a (click)="deleteProxy(proxy)">
+              <i class="fa fa-trash text-danger"></i>
+            </a>
+            &nbsp;
             <button type="button" class="btn-sm btn-primary" (click)="isCollapsed = !isCollapsed"> {{ ( isCollapsed? 'Advanced' :'Basic' )}}
             </button>
           </span>
@@ -175,7 +179,7 @@
               <button type="button" (click)="toggle_edit()" class="btn btn-danger" *ngIf="!is_new">
                 <i class="fa fa-ban"></i> Edit</button>
 
-                <a *ngIf="proxy.host" [routerLink]="['/hosts/edit/',proxy.host] "> Go to host</a>
+              <a *ngIf="proxy.host" [routerLink]="['/hosts/edit/',proxy.host] "> Go to host</a>
 
 
             </div>
@@ -184,7 +188,61 @@
 
       </div>
     </div>
-  
+
+    <div class="col-sm-6" *ngIf="!is_new && proxy.header_set">
+      <div class="card">
+        <div class="card-header">
+          <strong>Header List </strong>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <ng-container *ngIf="proxy.header_set">
+
+              <div class="col-sm-6 col-lg-6" *ngFor="let header of proxy.header_set">
+                <div class="card">
+                  <div class="card-header">
+                    <a [routerLink]="['/headers/edit/',header.id,{header :header.id}] "> {{header.header}} </a>
+
+                    <span class="float-right">
+                      <i *ngIf="header.downstream" class="fa fa-arrow-circle-down text-primary"></i>
+                      &nbsp;
+                      <i *ngIf="header.upstream" class="fa fa-arrow-circle-up text-primary"></i>
+                      &nbsp;
+                      <a (click)="deleteHeader(header)">
+                        <i class="fa fa-trash text-danger"></i>
+                      </a>
+
+                    </span>
+                  </div>
+                  <div class="card-body">
+                    <!-- <div>
+                      <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
+                    </div> -->
+                    <div>Value : {{header.value}}</div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <div class="col-sm-6 col-lg-6">
+              <div class="card bg-primary text-white">
+                <div class="card-body  text-center">
+                  <div class="text-center">
+                    <a [routerLink]="['/headers/add',{ proxy : proxy.id}] ">
+                      <i class="fa fa-plus fa-2x text-white"></i>
+                      <br />
+                    </a>
+                  </div>
+                  Add new
+                  <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/.card-->
+    </div>
+
 
   </div>
 </div>

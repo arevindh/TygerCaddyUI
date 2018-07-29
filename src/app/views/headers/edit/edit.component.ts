@@ -52,11 +52,11 @@ export class EditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = +params['id'];
-      var fwd_host = +params['host'];
+      var fwd_proxy = +params['proxy'];
       if (this.id) {
         this.loadHeaderData()
       } else {
-        this.loadDefault(fwd_host)
+        this.loadDefault(fwd_proxy)
       }
     });
 

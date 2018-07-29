@@ -76,8 +76,6 @@ export class UpdateComponent {
         this.host = data;
         console.log(this.host)
       });
-
-
   }
 
   loadDefault() {
@@ -116,7 +114,18 @@ export class UpdateComponent {
       .deleteHost(host.id)
       .subscribe();
     this.router.navigate(['/hosts/']);
-    // this.host = this.hosts.filter(item => item !== host);
+  }
+
+  deleteProxy(proxy) {
+    this
+      .proxyservice
+      .deleteProxy(proxy.id)
+      .subscribe(result => {
+        this.loadHostData();
+        this.toastr.success('Proxy deleted!', 'Success');
+      }, error => {
+        this.toastr.error('Unable to add Proxy', 'Failed');
+      });
   }
 
   onSubmit() {

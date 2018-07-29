@@ -55,7 +55,8 @@ import { AuthGuard } from './guards/auth-guard';
 import { ProxyService } from './services/proxy/proxy.service';
 
 import { CookieService } from 'ngx-cookie-service';
-
+import 'bootstrap/dist/css/bootstrap.css';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
   imports: [
@@ -77,6 +78,9 @@ import { CookieService } from 'ngx-cookie-service';
       timeOut: 3000,
       positionClass: 'toast-bottom-right'
     }), // ToastrModule added
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger' // set defaults here
+    })
   ],
   declarations: [
     AppComponent,

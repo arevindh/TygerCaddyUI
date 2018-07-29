@@ -20,5 +20,6 @@ export interface Proxy {
     insecure_skip_verify: Boolean,
     websocket: Boolean,
     transparent: Boolean,
-    host: Number
+    host: Number,
+    header_set : Headers[]
 }
