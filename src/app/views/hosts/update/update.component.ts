@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -40,6 +41,7 @@ export class UpdateComponent {
   id: number;
   edit_enabled: boolean;
   is_new: boolean = true;
+  isValidFormSubmitted = false;
 
   setTitle(title, type) {
     this.page_title = title;
@@ -53,7 +55,7 @@ export class UpdateComponent {
       .data
       .subscribe(
         v => this.setTitle(v.title, v.type),
-    );
+      );
 
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
@@ -92,6 +94,9 @@ export class UpdateComponent {
       custom_ssl: false,
       custom_certs: [],
       force_redirect_https: true,
+      basic_auth: false,
+      basic_password: null,
+      basic_username: null,
       proxy_set: []
     } as Host;
   }
@@ -128,7 +133,14 @@ export class UpdateComponent {
       });
   }
 
-  onSubmit() {
+  onSubmit(form:NgForm) {
+
+    this.isValidFormSubmitted = false;
+    if (form.invalid) {
+      console.log('invalid form')
+      return;
+    }
+    this.isValidFormSubmitted = true;
 
     if (this.is_new) {
       this

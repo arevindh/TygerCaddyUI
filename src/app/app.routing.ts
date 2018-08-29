@@ -78,6 +78,10 @@ export const routes: Routes = [
         loadChildren: './views/proxy/proxy.module#ProxyModule'
       },
       {
+        path: 'config',
+        loadChildren: './views/config/config.module#ConfigModule'
+      },
+      {
         path: 'headers',
         loadChildren: './views/headers/headers.module#HeadersModule'
       },

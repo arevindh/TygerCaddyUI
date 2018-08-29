@@ -1,3 +1,50 @@
-<p>
-  config works!
-</p>
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{page_title}}</strong>
+        </div>
+
+        <div class="card-body">
+          <form action="" method="post" *ngIf="config" (ngSubmit)="onSubmit()" #hostForm="ngForm">
+
+            <div class="form-group">
+              <label for="name">Listening Interace</label>
+              <input [disabled]="isDisabled()" type="text" id="interface" name="interface" [(ngModel)]="config.interface" placeholder="Listening Interface"
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="port">Listen Port</label>
+              <input [disabled]="isDisabled()" type="text" id="port" name="port" [(ngModel)]="config.port" placeholder="Listen Port" class="form-control">
+            </div>
+            
+            <div class="form-group">
+              <label for="proxy_exception">Proxy exception</label>
+              <input [disabled]="isDisabled()" type="text" id="port" name="proxy_exception" [(ngModel)]="config.proxy_exception" placeholder="Proxy exception"
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="root_dir">Root dir</label>
+              <input [disabled]="isDisabled()" type="text" id="port" name="root_dir" [(ngModel)]="config.root_dir" placeholder="Root dir"
+                class="form-control">
+            </div>
+
+
+            <div class="card-footer">
+              <button [disabled]="isDisabled()" type="submit" class="btn btn-primary">
+                <i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="button" (click)="toggle_edit()" class="btn btn-danger" *ngIf="!is_new">
+                <i class="fa fa-ban"></i> Edit</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -7,54 +7,125 @@
           <strong>{{page_title}}</strong>
         </div>
         <div class="card-body">
-          <form action="" method="post" *ngIf="host" (ngSubmit)="onSubmit()" #hostForm="ngForm">
+          <form action="" method="post" *ngIf="host" (ngSubmit)="onSubmit(hostForm)" #hostForm="ngForm">
+
+            <!-- Hostname start -->
             <div class="form-group">
               <label for="host_name">Hostname</label>
-              <input [disabled]="isDisabled()" type="text" id="hostname" name="host_name" [(ngModel)]="host.host_name" placeholder="Enter valid hostname eg: example.com"
-                class="form-control">
-              <!-- <span class="help-block">Enter valid hostname</span> -->
-            </div>
-            <div class="form-group">
-              <label for="root_path">Root path</label>
-              <input [disabled]="isDisabled()" type="text" id="rootpath" name="root_path" [(ngModel)]="host.root_path" placeholder="Enter path eg : '/'"
-                class="form-control">
-            </div>
+              <input [disabled]="isDisabled()" type="text" pattern="^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$" id="hostname"
+                required #host_name="ngModel" name="host_name" [(ngModel)]="host.host_name" placeholder="Enter valid hostname eg: example.com"
+                class="form-control form-control-danger" [ngClass]="{'is-invalid': host_name.errors && hostForm.submitted && !isValidFormSubmitted}">
 
+              <span class="help-block text-danger" *ngIf="host_name.errors?.required && hostForm.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Hostname required.
+              </span>
+              <span class="help-block text-danger" *ngIf="host_name.errors?.pattern && hostForm.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Enter a valid hostname
+              </span>
+            </div>
+            <!-- Hostname end -->
+
+            <!-- Root path start -->
+            <div class="form-group">
+              <label for="rootpath">Root path</label>
+              <input [disabled]="isDisabled()" required type="text" id="rootpath" name="root_path" #root_path="ngModel" [(ngModel)]="host.root_path"
+                placeholder="Enter path eg : '/'" class="form-control" [ngClass]="{'is-invalid': root_path.errors && hostForm.submitted && !isValidFormSubmitted}">
+
+              <span class="help-block " *ngIf="root_path.errors?.required && hostForm.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Root path is required.
+              </span>
+            </div>
+            <!-- Root path end -->
+
+            <!-- SSL Provider start -->
             <div class="form-group ">
               <label class=" col-form-label" for="custom_ssl">SSL Provider</label>
               <select [disabled]="isDisabled()" id="ssl_provider" [(ngModel)]="host.custom_ssl" name="custom_ssl" class="form-control">
                 <option value="false">Let's Encrypt</option>
-                <option value="true">Custom</option>
+                <option value="true" disabled>Custom</option>
               </select>
             </div>
+            <!-- SSL Provider end -->
 
-            <div class="form-group " *ngIf="!host.custom_ssl">
+            <!-- Let's Encrypt TLS config start -->
+            <div class="form-group " *ngIf="host.custom_ssl == 'false'">
               <label class=" col-form-label" for="staging">Let's Encrypt TLS config</label>
-              <select [disabled]="isDisabled()" id="ssl_provider" name="staging" [(ngModel)]="host.staging" class="form-control">
+              <select [disabled]="isDisabled()" [required]="host.custom_ssl == 'false'" id="staging" name="staging" [(ngModel)]="host.staging"
+                class="form-control">
                 <option value="true">Staging</option>
                 <option value="false">Production</option>
               </select>
             </div>
+            <!-- Let's Encrypt TLS config end -->
 
-            <div class="form-group" *ngIf="host.custom_ssl">
-              <label for="nf-password">Custom Certificate</label>
-              <textarea [disabled]="isDisabled()" id="custom_cert" rows="9" name="custom_cert" class="form-control"></textarea>
+            <!-- Custom Certificate start -->
+            <div class="form-group" *ngIf="host.custom_ssl =='true'">
+              <label for="custom_cert">Custom Certificate</label>
+              <select [disabled]="isDisabled()" id="custom_cert" name="custom_cert" [(ngModel)]="host.custom_cert" [required]="host.custom_ssl =='true'"
+                class="form-control">
+              </select>
+
+              <!-- <textarea [disabled]="isDisabled()" id="custom_cert" rows="9" name="custom_cert" class="form-control" [required]="host.custom_ssl =='true'"></textarea> -->
               <span class="help-block">Paste Custom Certificate in pem format</span>
+              <span class="help-block " *ngIf="ccert.errors?.required && hostForm.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Certificate is required
+              </span>
+            </div>
+            <!-- Custom Certificate end -->
+
+            <!-- Basic Auth start -->
+            <div class="form-group">
+              <div class="form-check form-check-inline mr-1">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="host.basic_auth" type="checkbox" name="basic_auth"
+                  id="inline-basic_auth" value="true">
+                <label class="form-check-label" for="basic_auth">Basic Auth</label>
+              </div>
+            </div>
+            <!-- Basic Auth end -->
+
+            <!-- Basic Auth Username start -->
+            <div class="form-group">
+              <label for="basic_username">Username</label>
+              <input [disabled]="isDisabled() || !host.basic_auth" type="text" id="basic_username" name="basic_username" [(ngModel)]="host.basic_username"
+                placeholder="Username" class="form-control" #basic_username="ngModel" [required]="host.basic_auth == true"
+                [ngClass]="{'is-invalid': basic_username.errors && hostForm.submitted && !isValidFormSubmitted}">
+              <span class="help-block " *ngIf="basic_username.errors?.required && hostForm.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Username is required
+              </span>
             </div>
 
+            <!-- Basic Auth Username end -->
+
+            <!-- Basic Auth password start -->
+            <div class="form-group">
+              <label for="basic_password">Password</label>
+              <input [disabled]="isDisabled() || !host.basic_auth" type="password" id="basic_password" name="basic_password" [(ngModel)]="host.basic_password"
+                #basic_password="ngModel" [required]="host.basic_auth == true" placeholder="Password" class="form-control"
+                [ngClass]="{'is-invalid': basic_password.errors && hostForm.submitted && !isValidFormSubmitted}">
+
+              <span class="help-block " *ngIf="basic_password.errors?.required && hostForm.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Password is required
+              </span>
+            </div>
+            <!-- Basic Auth password end -->
+
+            <!-- Force https start -->
             <div class="form-group">
               <div class="form-check form-check-inline mr-1">
                 <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="host.force_redirect_https" type="checkbox" name="force_redirect_https"
-                  id="inline-checkbox1" value="option1">
+                  id="force_redirect_https" value="true">
                 <label class="form-check-label" for="force_redirect_https">Force HTTPS</label>
               </div>
             </div>
+            <!-- Force https end -->
+            <!-- Edit and save buttons start -->
             <div class="card-footer">
               <button [disabled]="isDisabled()" type="submit" class="btn btn-sm btn-primary">
                 <i class="fa fa-dot-circle-o"></i> Submit</button>
               <button type="button" (click)="toggle_edit()" class="btn btn-sm btn-danger">
                 <i class="fa fa-ban"></i> Edit</button>
             </div>
+            <!-- Edit and save buttons end -->
           </form>
         </div>
 
@@ -83,7 +154,7 @@
                     <!-- <div>
                       <i class="fa fa-check text-success" aria-hidden="true"></i> Enabled
                     </div> -->
-                    <div>Porxy from : {{proxy.proxy_from}} </div>
+                    <div>Proxy from : {{proxy.proxy_from}} </div>
                     <div>Proxy to : {{proxy.proxy_to}}</div>
                   </div>
                 </div>
@@ -99,7 +170,6 @@
                     </a>
                   </div>
                   Add new
-                  <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
                 </div>
               </div>
             </div>

@@ -73,17 +73,17 @@ export const navItems = [
 
   {
     name: 'Settings',
-    url: '/theme/colors',
+    url: '/config/',
     icon: 'fa fa-gears',
     children: [
       {
         name: 'Basic',
-        url: '/base/cards',
+        url: '/config/',
         icon: 'fa fa-gear'
       },
       {
         name: 'DNS',
-        url: '/base/cards',
+        url: '',
         icon: 'fa fa-drivers-license-o'
       }
     ]
