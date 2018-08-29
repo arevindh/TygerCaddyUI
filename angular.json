@@ -27,6 +27,9 @@
               "src/scss/style.scss",
               "node_modules/ngx-toastr/toastr.css" 
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["./node_modules"]
+            },
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js"
             ]
@@ -84,6 +87,9 @@
               "node_modules/simple-line-icons/css/simple-line-icons.css",
               "src/scss/style.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["./node_modules"]
+            },
             "assets": [
               "src/assets",
               "src/favicon.ico"
