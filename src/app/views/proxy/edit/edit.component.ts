@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -33,6 +33,7 @@ export class EditComponent implements OnInit {
   hosts: Host[];
   is_new: boolean = true;
   to_host: any;
+  isValidFormSubmitted = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient,
     private proxyservice: ProxyService,
@@ -49,7 +50,7 @@ export class EditComponent implements OnInit {
       .data
       .subscribe(
         v => this.setTitle(v.title, v.type),
-    );
+      );
 
     this.route.params.subscribe(params => {
       this.id = +params['id'];
@@ -132,7 +133,14 @@ export class EditComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
+
+    this.isValidFormSubmitted = false;
+    if (form.invalid) {
+      console.log('invalid form')
+      return;
+    }
+    this.isValidFormSubmitted = true;
     console.log(this.proxy);
 
     if (!this.is_new) {
