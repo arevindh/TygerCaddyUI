@@ -32,7 +32,7 @@
             </div>
             <!--  Proxy Name end -->
 
-            <!--  Proxy from -->
+            <!--  Proxy from start -->
             <div class="form-group">
               <label for="proxy_from">Proxy from</label>
               <input [disabled]="isDisabled()" type="text" required id="proxy_from" #proxy_from="ngModel" name="proxy_from" [ngClass]="{'is-invalid': proxy_from.errors && proxyform.submitted && !isValidFormSubmitted}"
@@ -43,6 +43,7 @@
                 Proxy from required.
               </span>
             </div>
+            <!--  Proxy from end -->
 
             <div class="form-group">
               <label for="proxy_to">Proxy to</label>
