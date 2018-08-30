@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -24,14 +25,15 @@ import { ToastrService } from 'ngx-toastr';
 export class EditComponent implements OnInit {
 
   id: number;
-  header: Header;
-  proxy: Proxy[];
+  headerdata: Header;
+  proxylist : Proxy[];
   host: Host;
   edit_enabled: boolean;
   sub: any;
   is_new: boolean = true;
   page_title: string;
   to_proxy: any;
+  isValidFormSubmitted = false;
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
@@ -47,7 +49,7 @@ export class EditComponent implements OnInit {
       .data
       .subscribe(
         v => this.setTitle(v.title, v.type),
-    );
+      );
 
 
     this.route.params.subscribe(params => {
@@ -64,7 +66,7 @@ export class EditComponent implements OnInit {
       .proxyservice
       .getProxies()
       .subscribe((data: Proxy[]) => {
-        this.proxy = data;
+        this.proxylist = data;
       });
   }
 
@@ -75,8 +77,8 @@ export class EditComponent implements OnInit {
       .headerservice
       .getHeader(this.id)
       .subscribe((data: Header) => {
-        this.header = data;
-        console.log(this.header);
+        this.headerdata = data;
+        console.log(this.headerdata);
         this.page_title = "Header Details "
       });
 
@@ -86,7 +88,7 @@ export class EditComponent implements OnInit {
     console.log('default loaded');
     this.to_proxy = fwd_proxy;
     this.edit_enabled = true;
-    this.header = {
+    this.headerdata = {
       id: null,
       header: "",
       upstream: false,
@@ -114,15 +116,29 @@ export class EditComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
     // console.log(this.header);
+
+
+    this.isValidFormSubmitted = false;
+
+    // check the host is valid or not
+    if (!this.headerdata.proxy) {
+      form.form.controls['proxy'].setErrors({ 'required': true });
+    }
+
+    if (form.invalid) {
+      console.log('invalid form')
+      return;
+    }
+    this.isValidFormSubmitted = true;
 
     if (!this.is_new) {
       this
         .headerservice
-        .updateHeader(this.header, this.header.id)
+        .updateHeader(this.headerdata, this.headerdata.id)
         .subscribe((data: Header) => {
-          this.header = data;
+          this.headerdata = data;
           this.page_title = 'Edit Header';
           this.toastr.success('Header Updated!', 'Success');
         },
@@ -135,9 +151,9 @@ export class EditComponent implements OnInit {
     else {
       this
         .headerservice
-        .addHeader(this.header)
+        .addHeader(this.headerdata)
         .subscribe((data: Header) => {
-          this.header = data;
+          this.headerdata = data;
           this.page_title = 'Edit header';
           this.router.navigate([`/headers/edit/${data.id}/`]);
           this.toastr.success('Header Added!', 'Success');

@@ -1,8 +1,5 @@
-<app-header
-  [fixed]="true"
-  [navbarBrandFull]="{src: base_path+'assets/img/brand/logo.svg', width: 89, height: 25, alt: 'TygerCaddy Logo'}"
-  [navbarBrandMinimized]="{src: base_path+'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'TygerCaddy Logo'}"
-  [sidebarToggler]="'lg'"
+<app-header [fixed]="true" [navbarBrandFull]="{src: base_path+'assets/img/brand/logo.svg', width: 89, height: 25, alt: 'TygerCaddy Logo'}"
+  [navbarBrandMinimized]="{src: base_path+'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'TygerCaddy Logo'}" [sidebarToggler]="'lg'"
   [asideMenuToggler]="'lg'">
   <!-- <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
@@ -21,13 +18,19 @@
     </li>
     <li class="nav-item d-md-down-none">
       <a class="nav-link" href="#"><i class="icon-list"></i></a>
+    </li>-->
+    <li class="nav-item d-md-down-none">
+      <a class="nav-link" href="#"><i class="fa fa-refresh fa-lg" alt="Restart"></i></a>
     </li>
     <li class="nav-item d-md-down-none">
-      <a class="nav-link" href="#"><i class="icon-location-pin"></i></a>
-    </li> -->
+      <a class="nav-link" href="#" alt="Stop"><i class="fa fa-stop-circle fa-lg text-light"></i>
+      </a>
+    </li>
+
     <li class="nav-item dropdown" dropdown placement="bottom right">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-        <img src="{{base_path}}assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com"/>
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle
+        (click)="false">
+        <img src="{{base_path}}assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>Account</strong></div>
@@ -42,7 +45,7 @@
         <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
         <div class="divider"></div>
         <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a> -->
-        <a class="dropdown-item"  [routerLink]="['/login'] "><i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" [routerLink]="['/login'] "><i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
   </ul>
@@ -261,7 +264,8 @@
               </label>
             </div>
             <div>
-              <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+              <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua.</small>
             </div>
           </div>
           <div class="aside-options">
@@ -273,7 +277,8 @@
               </label>
             </div>
             <div>
-              <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+              <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua.</small>
             </div>
           </div>
           <div class="aside-options">

@@ -6,7 +6,7 @@
         <div class="card-header">
           <strong>{{page_title}}</strong>
           <span class=" float-right">
-            <a (click)="deleteProxy(proxy)">
+            <a (click)="deleteProxy(proxy)" *ngIf="!is_new">
               <i class="fa fa-trash text-danger"></i>
             </a>
             &nbsp;
@@ -26,7 +26,7 @@
                 [ngClass]="{'is-invalid': name.errors && proxyform.submitted && !isValidFormSubmitted}" class="form-control">
 
               <span class="help-block text-danger" *ngIf="name.errors?.required && proxyform.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
-                Proxy name required.
+                Proxy name is required.
               </span>
 
             </div>
@@ -40,17 +40,24 @@
 
               <span class="help-block text-danger" *ngIf="proxy_from.errors?.required && proxyform.submitted && !isValidFormSubmitted"
                 [ngClass]="'text-danger'">
-                Proxy from required.
+                Proxy from is required.
               </span>
             </div>
             <!--  Proxy from end -->
 
+            <!--  Proxy to start -->
             <div class="form-group">
               <label for="proxy_to">Proxy to</label>
-              <input [disabled]="isDisabled()" type="text" id="proxy_to" name="proxy_to" [(ngModel)]="proxy.proxy_to" placeholder="" class="form-control">
+              <input [disabled]="isDisabled()" type="text" required id="proxy_to" #proxy_to="ngModel" name="proxy_to" [(ngModel)]="proxy.proxy_to"
+                placeholder="" class="form-control" [ngClass]="{'is-invalid': proxy_to.errors && proxyform.submitted && !isValidFormSubmitted}">
 
+              <span class="help-block text-danger" *ngIf="proxy_to.errors?.required && proxyform.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Proxy to is required.
+              </span>
             </div>
+            <!--  Proxy to start -->
 
+            <!--  Proxy to Ignore SSL Certificate start -->
             <div class="form-group">
               <div class="form-check form-check-inline mr-1">
                 <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="proxy.insecure_skip_verify" type="checkbox" name="insecure_skip_verify"
@@ -58,7 +65,9 @@
                 <label class="form-check-label" for="insecure_skip_verify">Ignore SSL Certificate</label>
               </div>
             </div>
+            <!--  Proxy to Ignore SSL Certificate end -->
 
+            <!--  Enable Websocket Proxy start -->
             <div class="form-group">
               <div class="form-check form-check-inline mr-1">
                 <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="proxy.websocket" type="checkbox" name="websocket"
@@ -66,7 +75,10 @@
                 <label class="form-check-label" for="websocket">Websocket Proxy</label>
               </div>
             </div>
+            <!--  Enable Websocket Proxy end -->
 
+
+            <!--  Enable Transparent Proxy start -->
             <div class="form-group">
               <div class="form-check form-check-inline mr-1">
                 <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="proxy.transparent" type="checkbox" name="transparent"
@@ -74,17 +86,22 @@
                 <label class="form-check-label" for="transparent">Enable Transparent Proxy</label>
               </div>
             </div>
+            <!--  Enable Transparent Proxy end -->
 
-
+            <!--  Host start -->
             <div class="form-group">
-              <label for="single_host">host</label>
-              <select [disabled]="isDisabled()" class="form-control" id="host" name="host" [(ngModel)]="proxy.host">
+              <label for="single_host">Host</label>
+              <select [disabled]="isDisabled()" required class="form-control" id="host" name="host" [(ngModel)]="proxy.host" #host="ngModel"
+                [ngClass]="{'is-invalid': host.errors && proxyform.submitted && !isValidFormSubmitted}">
                 <option *ngFor="let single_host of hosts" [value]="single_host.id">{{single_host.host_name}}</option>
               </select>
 
+              <span class="help-block text-danger" *ngIf="host.errors?.required && proxyform.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Host is required.
+              </span>
+
             </div>
-
-
+            <!--  Host end -->
 
             <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
 

@@ -92,7 +92,7 @@ export class EditComponent implements OnInit {
       id: null,
       name: "",
       proxy_from: "",
-      proxy_to: "",
+      proxy_to: "/",
       load_policy: null,
       fail_timeout: null,
       max_fails: null,
@@ -136,6 +136,12 @@ export class EditComponent implements OnInit {
   onSubmit(form: NgForm) {
 
     this.isValidFormSubmitted = false;
+
+    // check the host is valid or not
+    if (!this.proxy.host) {
+      form.form.controls['host'].setErrors({ 'required': true });
+    }
+
     if (form.invalid) {
       console.log('invalid form')
       return;

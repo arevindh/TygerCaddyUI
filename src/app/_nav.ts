@@ -81,11 +81,11 @@ export const navItems = [
         url: '/config/',
         icon: 'fa fa-gear'
       },
-      {
-        name: 'DNS',
-        url: '',
-        icon: 'fa fa-drivers-license-o'
-      }
+      // {
+      //   name: 'DNS',
+      //   url: '',
+      //   icon: 'fa fa-drivers-license-o'
+      // }
     ]
   },
 

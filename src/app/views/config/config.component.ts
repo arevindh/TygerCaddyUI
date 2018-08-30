@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
+import { NgForm } from '@angular/forms';
 
 import { ConfigService } from '../../services/config/config.service';
 
@@ -34,6 +35,7 @@ export class ConfigComponent {
   edit_enabled: boolean;
   sub: any;
   config: Config;
+  isValidFormSubmitted = false;
 
 
   setTitle(title, type) {
@@ -51,7 +53,7 @@ export class ConfigComponent {
       .data
       .subscribe(
         v => this.setTitle(v.title, v.type),
-    );
+      );
 
     this.loadConfig();
 
@@ -72,7 +74,32 @@ export class ConfigComponent {
   toggle_edit() {
     this.edit_enabled = !this.edit_enabled;
   }
-  onSubmit() {
+  onSubmit(form: NgForm) {
+
+    this.isValidFormSubmitted = false;
+
+    if (form.invalid) {
+      return;
+    }
+    this.isValidFormSubmitted = true;
+
+
+    // if (!this.config.interface) {
+    //   this.config.interface = '0.0.0.0'
+    // }
+
+    // if (!this.config.port) {
+    //   this.config.port = 8080;
+    // }
+
+    // if (!this.config.proxy_exception) {
+    //   this.config.proxy_exception = '/assets'
+    // }
+
+    // if (!this.config.root_dir) {
+    //   this.config.root_dir = '/apps/TygerCaddy/TygerCaddy'
+    // }
+
     this
       .configService
       .updateSettings(this.config)

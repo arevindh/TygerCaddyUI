@@ -8,45 +8,66 @@
         </div>
 
         <div class="card-body">
-          <form action="" method="post" *ngIf="header" (ngSubmit)="onSubmit()" #hostForm="ngForm">
+          <form action="" method="post" *ngIf="headerdata" (ngSubmit)="onSubmit(headerform)" #headerform="ngForm">
 
+            <!-- header name start -->
             <div class="form-group">
               <label for="name">Header</label>
-              <input [disabled]="isDisabled()" type="text" id="header" name="header" [(ngModel)]="header.header" placeholder="Header name"
-                class="form-control">
-              <!-- <span class="help-block">Enter valid hostname</span> -->
+              <input [disabled]="isDisabled()" type="text" id="header" #header="ngModel" required name="header" [(ngModel)]="headerdata.header"
+                placeholder="Header name" class="form-control" [ngClass]="{'is-invalid': header.errors && headerform.submitted && !isValidFormSubmitted}">
+              <span class="help-block text-danger" *ngIf="header.errors?.required && headerform.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Header name is required.
+              </span>
+
             </div>
+            <!-- header name end -->
+
+            <!-- header value start -->
             <div class="form-group">
-              <label for="proxy_from">Value</label>
-              <input [disabled]="isDisabled()" type="text" id="value" name="value" [(ngModel)]="header.value" placeholder="header value"
-                class="form-control">
-              <!-- <span class="help-block">Enter valid hostname</span> -->
+              <label for="headervalue">Value</label>
+              <input [disabled]="isDisabled()" type="text" required id="headervalue" name="value" #headervalue="ngModel" [(ngModel)]="headerdata.value"
+                placeholder="Header value" class="form-control" [ngClass]="{'is-invalid': headervalue.errors && headerform.submitted && !isValidFormSubmitted}">
+
+              <span class="help-block text-danger" *ngIf="headervalue.errors?.required && headerform.submitted && !isValidFormSubmitted"
+                [ngClass]="'text-danger'">
+                Header value is required.
+              </span>
             </div>
+            <!-- header value end -->
 
-
+            <!-- Upstream start -->
             <div class="form-group">
               <div class="form-check form-check-inline mr-1">
-                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="header.upstream" type="checkbox" name="upstream" id="upstream"
-                  value="false">
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="headerdata.upstream" type="checkbox" name="upstream"
+                  id="upstream" value="false">
                 <label class="form-check-label" for="upstream">Upstream</label>
               </div>
             </div>
+            <!-- Upstream end -->
 
+            <!-- Downstream start -->
             <div class="form-group">
               <div class="form-check form-check-inline mr-1">
-                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="header.downstream" type="checkbox" name="downstream"
+                <input [disabled]="isDisabled()" class="form-check-input" [(ngModel)]="headerdata.downstream" type="checkbox" name="downstream"
                   id="downstream" value="false">
                 <label class="form-check-label" for="downstream">Downstream</label>
               </div>
             </div>
+            <!-- Downstream end -->
 
+            <!-- Proxy start -->
             <div class="form-group">
-              <label for="single_host">Proxy</label>
-              <select [disabled]="isDisabled()" class="form-control" id="proxy" name="proxy" [(ngModel)]="header.proxy">
-                <option *ngFor="let single_proxy of proxy" [value]="single_proxy.id">{{single_proxy.name}}</option>
+              <label for="proxy">Proxy</label>
+              <select [disabled]="isDisabled()" class="form-control" id="proxy" #proxy="ngModel" name="proxy" [(ngModel)]="headerdata.proxy"
+                [ngClass]="{'is-invalid': proxy.errors && headerform.submitted && !isValidFormSubmitted}">
+                <option *ngFor="let single_proxy of proxylist" [value]="single_proxy.id">{{single_proxy.name}}</option>
               </select>
-              <!-- <span class="help-block">Enter valid hostname</span> -->
+
+              <span class="help-block text-danger" *ngIf="proxy.errors?.required && headerform.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                Proxy is required.
+              </span>
             </div>
+            <!-- Proxy end -->
 
             <div class="card-footer">
               <button [disabled]="isDisabled()" type="submit" class="btn btn-primary">
@@ -54,7 +75,7 @@
               <button type="button" (click)="toggle_edit()" class="btn btn-danger" *ngIf="!is_new">
                 <i class="fa fa-ban"></i> Edit</button>
 
-              <a *ngIf="header.proxy" [routerLink]="['/proxy/edit/',header.proxy] "> Go to proxy</a>
+              <a *ngIf="headerdata.proxy" [routerLink]="['/proxy/edit/',headerdata.proxy] "> Go to proxy</a>
 
             </div>
           </form>
