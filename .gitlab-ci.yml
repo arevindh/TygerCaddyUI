@@ -1,0 +1,16 @@
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  environment:
+    name: development
+  script:
+    - npm install
+    - npm run build-prod
+  only:
+    - dev
