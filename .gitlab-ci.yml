@@ -4,10 +4,6 @@ cache:
   paths:
     - node_modules/
 
-before_script:
-  - apt-get update
-  - apt-get install zip unzip -y
-
 stages:
   - deploy
 
@@ -22,4 +18,4 @@ deploy:
     - dev
   artifacts:
     paths:
-    - dist/app.zip   
+    - dist/*  

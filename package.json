@@ -26,7 +26,7 @@
     "start-prod": "ng serve --proxy-config proxy.conf.json --configuration=production",
     "start-dev": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
-    "build-prod": "ng build --output-hashing none --named-chunks false --configuration=production --build-optimizer --base-href /v2/ --deploy-url /assets/angular/; zip -r dist/app.zip dist/app;",
+    "build-prod": "ng build --output-hashing none --named-chunks false --configuration=production --build-optimizer --base-href /v2/ --deploy-url /assets/angular/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
