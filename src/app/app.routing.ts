@@ -86,6 +86,10 @@ export const routes: Routes = [
         loadChildren: './views/headers/headers.module#HeadersModule'
       },
       {
+        path: 'certificates',
+        loadChildren: './views/certificates/certificates.module#CertificatesModule'
+      },
+      {
         path: 'icons',
         loadChildren: './views/icons/icons.module#IconsModule'
       },

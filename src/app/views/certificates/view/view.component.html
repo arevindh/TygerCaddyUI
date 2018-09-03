@@ -1,0 +1,59 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-sm-6 col-lg-3" *ngFor="let cert of certs">
+          <div class="card card-accent-info ">
+            <div class="card-header">
+              <a [routerLink]="['/certificates/edit/',cert.id] "> {{cert.cert_name}} </a>
+              <span class="float-right">
+                <a (click)="deleteCert(cert)">
+                  <i class="fa fa-trash text-danger"></i>
+                </a>
+              </span>
+            </div>
+            <div class="card-body" *ngIf="bundles != null && keys != null">
+              <div>
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-square fa-stack-2x"></i>
+                  <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                </span>
+
+                <a *ngIf="cert.bundle_upload" href="{{getBundleById(cert.bundle_upload).bundle_file}}">Download Bundle</a>
+                <a *ngIf="cert.bundle_text" href="#">Download Bundle</a>
+              </div>
+              <div>
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-square fa-stack-2x"></i>
+                  <i class="fa fa-key fa-stack-1x fa-inverse"></i>
+                </span>
+
+                <a *ngIf="cert.key_upload" href="{{getKeyById(cert.key_upload).key_file}}">Download Key</a>
+                <a *ngIf="cert.key_text" href="#">Download Key</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card bg-primary text-white">
+            <div class="card-body  text-center">
+              <div class="text-center">
+                <a [routerLink]="['/certificates/add'] ">
+                  <i class="fa fa-plus fa-2x text-white"></i>
+                  <br />
+                </a>
+              </div>
+              Add new
+              <!-- <small class="text-muted">Source : http://192.168.1.1/</small> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--/.card-->
+
+</div>

@@ -67,6 +67,24 @@ export const navItems = [
   },
 
   {
+    name: 'Certificates',
+    url: '/certificates',
+    icon: 'fa fa-shield',
+    children: [
+      {
+        name: 'View',
+        url: '/certificates/view',
+        icon: 'fa fa-list'
+      },
+      {
+        name: 'Add',
+        url: '/certificates/add',
+        icon: 'fa fa-plus-circle'
+      }
+    ]
+  },
+
+  {
     title: true,
     name: 'Configuration'
   },
