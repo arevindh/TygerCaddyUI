@@ -54,7 +54,6 @@ export class DashboardComponent implements OnInit {
 
     this.dashboardservice.getStats().subscribe((stats: Stats) => {
       this.stats = stats;
-      this.this.stats.uptime = parseInt(stats.uptime);
     })
 
 
