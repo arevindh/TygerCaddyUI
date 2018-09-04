@@ -88,6 +88,11 @@ export class EditComponent implements OnInit {
       .subscribe((data: Certificate) => {
         this.cert = data;
         // console.log(this.cert);
+
+        if(data.bundle_text){
+          this.is_upload = false;
+        }
+
         this.page_title = "Certificate Details"
       });
   }
@@ -126,7 +131,11 @@ export class EditComponent implements OnInit {
 
     var bundle_file = (<HTMLInputElement>document.getElementById("bundle_file")).files[0];
 
-    if (bundle_file.size > 16000) {
+    if (!bundle_file) {
+      return false;
+    }
+
+    if (bundle_file && bundle_file.size > 16000) {
       form.form.controls['bundle_file'].setErrors({ 'error': 'Maximum file size is 16 Kb' });
       return false;
     }
@@ -145,6 +154,10 @@ export class EditComponent implements OnInit {
 
     // console.log(form);
     var key_file = (<HTMLInputElement>document.getElementById("key_file")).files[0];
+
+    if (!key_file) {
+      return false;
+    }
 
     if (key_file.size > 8000) {
       form.form.controls['key_file'].setErrors({ 'error': 'Maximum file size is 8 Kb' });

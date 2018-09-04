@@ -1,6 +1,6 @@
 <div class="animated fadeIn">
   <div class="row">
-    <div class="col-sm-6 col-lg-3">
+    <div class="col-sm-6 col-lg-2">
       <div class="card text-white bg-info">
         <div class="card-body pb-0">
           <div class="btn-group float-right" dropdown>
@@ -8,37 +8,39 @@
               <i class="icon-settings"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-              <a class="dropdown-item" href="#">View all</a>
-              <a class="dropdown-item" href="#">Add host</a>
+              <a class="dropdown-item" href="#" [routerLink]="['/hosts/view']">View all</a>
+              <a class="dropdown-item" href="#" [routerLink]="['/hosts/add']">Add host</a>
             </div>
           </div>
-          <div class="text-value">20</div>
-          <div>All Hosts</div>
+          <div class="text-value" *ngIf="stats">{{stats.hostsCount}}</div>
+          <div>Host(s)</div>
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:0px;">
         </div>
       </div>
-    </div><!--/.col-->
-    <div class="col-sm-6 col-lg-3">
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-2">
       <div class="card text-white bg-primary">
         <div class="card-body pb-0">
-         <div class="btn-group float-right" dropdown>
+          <div class="btn-group float-right" dropdown>
             <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
               <i class="icon-settings"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-              <a class="dropdown-item" href="#">View all</a>
-              <a class="dropdown-item" href="#">Add header</a>
+              <a class="dropdown-item" href="#" [routerLink]="['/proxy/view']">View all</a>
+              <a class="dropdown-item" href="#" [routerLink]="['/proxy/add']">Add Proxy</a>
             </div>
           </div>
-          <div class="text-value">29</div>
-          <div>All Proxys</div>
+          <div class="text-value" *ngIf="stats">{{stats.proxyCount}}</div>
+          <div>Proxy(s)</div>
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:0px;">
         </div>
       </div>
-    </div><!--/.col-->
-    <div class="col-sm-6 col-lg-3">
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-2">
       <div class="card text-white bg-success">
         <div class="card-body pb-0">
           <div class="btn-group float-right" dropdown>
@@ -46,18 +48,37 @@
               <i class="icon-settings"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-              <a class="dropdown-item" href="#">View all</a>
-              <a class="dropdown-item" href="#">Add header</a>
+              <a class="dropdown-item" href="#" [routerLink]="['/hedaers/view']">View all</a>
+              <a class="dropdown-item" href="#" [routerLink]="['/headers/add']">Add header</a>
             </div>
           </div>
-          <div class="text-value">45</div>
-          <div>All headers</div>
+          <div *ngIf="stats" class="text-value">{{stats.headersCount}}</div>
+          <div>Header(s)</div>
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:0px;">
         </div>
       </div>
-    </div><!--/.col-->
-    <div class="col-sm-6 col-lg-3">
+    </div>
+    <!--/.col-->
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-2">
+      <div class="card text-white bg-primary">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent p-0 float-right">
+              <i class="icon-location-pin"></i>
+            </button>
+          </div>
+          <div *ngIf="stats" class="text-value">{{ stats.uptime/1000 | amDuration:'seconds' }}</div>
+          <div>Uptime</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:0px;">
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-2">
       <div class="card text-white bg-indigo">
         <div class="card-body pb-0">
           <div class="btn-group float-right" dropdown>
@@ -65,21 +86,41 @@
               <i class="icon-location-pin"></i>
             </button>
           </div>
-          <div class="text-value">192.168.1.1</div>
-          <div>Lastlogin</div>
+          <div *ngIf="stats" class="text-value"> {{stats.cpu}}%
+          </div>
+          <div>CPU Usage</div>
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:0px;">
         </div>
       </div>
-    </div><!--/.col-->
-  </div><!--/.row-->
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-2">
+      <div class="card text-white bg-info">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent p-0 float-right">
+              <i class="icon-location-pin"></i>
+            </button>
+          </div>
+          <div *ngIf="stats" class="text-value"> {{stats.IP}}
+          </div>
+          <div>IP Address</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:0px;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/.row-->
   <div class="card">
     <div class="card-body">
       <div class="row">
         <div class="col-sm-5">
           <h4 class="card-title mb-0">Traffic</h4>
           <div class="small text-muted">November 2017</div>
-        </div><!--/.col-->
+        </div>
+        <!--/.col-->
         <div class="col-sm-7 d-none d-md-block">
           <button type="button" class="btn btn-primary float-right"><i class="icon-cloud-download"></i></button>
           <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
@@ -87,37 +128,19 @@
             <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Month" id="option2">Month</label>
             <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Year" id="option3">Year</label>
           </div>
-        </div><!--/.col-->
-      </div><!--/.row-->
+        </div>
+        <!--/.col-->
+      </div>
+      <!--/.row-->
       <div class="chart-wrapper" style="height:300px;margin-top:40px;">
-        <canvas baseChart class="chart"
-        [datasets]="mainChartData"
-        [labels]="mainChartLabels"
-        [options]="mainChartOptions"
-        [colors]="mainChartColours"
-        [legend]="mainChartLegend"
-        [chartType]="mainChartType"></canvas>
+        <canvas baseChart class="chart" [datasets]="mainChartData" [labels]="mainChartLabels" [options]="mainChartOptions" [colors]="mainChartColours"
+          [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>
       </div>
 
-      
-    <div>
-      <ngx-datatable 
-      class="bootstrap responsive fullscreen"
-      [rows]="rows"
-      [columns]="columns"
-      [columnMode]="'force'"
-      [headerHeight]="40"
-      [summaryRow]="true"
-      [summaryPosition]="'bottom'"
-      [footerHeight]="40"
-      [limit]="10"
-      [rowHeight]="'auto'"
-      [sortType]="'multi'"
-        >
-      </ngx-datatable>
-    </div>
+
 
     </div>
+
     <div class="card-footer">
       <div class="row text-center">
         <div class="col-sm-12 col-md mb-sm-2 mb-0">

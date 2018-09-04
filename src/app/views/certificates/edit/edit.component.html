@@ -20,10 +20,15 @@
               <label for="name">Certificate Name</label>
               <input [disabled]="isDisabled() || !is_new" #name="ngModel" required type="text" id="cert_name" name="cert_name" [(ngModel)]="cert.cert_name"
                 placeholder="Cerificate name" [ngClass]="{'is-invalid': name.errors && certform.submitted && !isValidFormSubmitted}"
-                class="form-control">
+                class="form-control" pattern="^[a-zA-Z0-9.-]+$">
 
               <span class="help-block text-danger" *ngIf="name.errors?.required && certform.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
-                Certificate is required.
+                Certificate name is required.
+              </span>
+
+              <span class="help-block text-danger" *ngIf="!name.errors?.required && name.errors?.pattern && certform.submitted && !isValidFormSubmitted"
+                [ngClass]="'text-danger'">
+                You can use only Alphanumeric, `.` and `-`
               </span>
 
             </div>
@@ -31,7 +36,7 @@
 
             <!-- type select start -->
 
-            <div class="form-group ">
+            <!-- <div class="form-group ">
               <label for="is_upload">Inline Radios</label>
               <div>
                 <div class="form-check form-check-inline mr-1" id="is_upload">
@@ -43,57 +48,74 @@
                   <label class="form-check-label" for="is_upload">Raw Text</label>
                 </div>
               </div>
+            </div> -->
+            <div class="row">
+              <!-- type select end -->
+              <div class="col-sm-6 col-md-6">
+                <div class="card">
+                  <div class="card-header"> Certificate Bundle </div>
+                  <div class="card-body">
+                    <!--  Bundle start -->
+                    <div class="form-group">
+                      <label for="bundle_file">Upload</label>
+
+                      <input [disabled]="isDisabled()" id="bundle_file" class="form-control" (change)="readBundle(certform)" accept=".pem,.cer,.crt,.cert"
+                        name="bundle_file" type="file" #bundle_file="ngModel" [(ngModel)]="t_bundle_file" [ngClass]="{'is-invalid': bundle_file.errors}">
+
+                      <span class="help-block text-danger" *ngIf="bundle_file.errors?.error" [ngClass]="'text-danger'">
+                        {{bundle_file.errors?.error}}
+                      </span>
+
+                    </div>
+                    <!--  Bundle end -->
+                    <div class="text-center h5 text-capitalize"> OR </div>
+                    <!--  bundle text start -->
+                    <div class="form-group">
+                      <label for="bundle_text">Text</label>
+                      <textarea class="form-control" [disabled]="isDisabled()" #bundle_text="ngModel" required id="bundle_text" name="bundle_text" [(ngModel)]="cert.bundle_text">
+                          </textarea>
+                    </div>
+                    <!--  bundle text end -->
+                    <span class="help-block text-danger" *ngIf="bundle_text.errors?.required && certform.submitted && !isValidFormSubmitted"
+                      [ngClass]="'text-danger'">
+                      Bundle Certificate is required.
+                    </span>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-md-6">
+                <div class="card">
+                  <div class="card-header"> Private Key </div>
+                  <div class="card-body">
+                    <!--  Key start -->
+                    <div class="form-group">
+                      <label for="key_file">Upload</label>
+                      <input [disabled]="isDisabled()" id="key_file" #key_file="ngModel" [(ngModel)]="t_key_file" class="form-control" (change)="readKey(certform)"
+                        accept=".key" name="key_file" type="file" [ngClass]="{'is-invalid': key_file.errors}">
+
+                      <span class="help-block text-danger" *ngIf="key_file.errors?.error" [ngClass]="'text-danger'">
+                        {{key_file.errors?.error}}
+                      </span>
+
+                    </div>
+                    <!--  Key end -->
+                    <div class="text-center h5 text-capitalize"> OR </div>
+                    <!--  Key start -->
+                    <div class="form-group">
+                      <label for="key_text">Text</label>
+                      <textarea class="form-control" [disabled]="isDisabled()" #key_text="ngModel" required id="key_text" name="key_text" [(ngModel)]="cert.key_text">
+                   </textarea>
+                    </div>
+                    <!--  Key end -->
+                    <span class="help-block text-danger" *ngIf="key_text.errors?.required && certform.submitted && !isValidFormSubmitted" [ngClass]="'text-danger'">
+                      Private key is required.
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <!-- type select end -->
-
-
-            <!--  Bundle start -->
-            <div class="form-group" *ngIf="is_upload">
-              <label for="bundle_file">Bundle</label>
-
-              <input [disabled]="isDisabled()" id="bundle_file" class="form-control" (change)="readBundle(certform)" accept=".pem,.cer,.crt,.cert"
-                name="bundle_file" type="file" #bundle_file="ngModel" [(ngModel)]="t_bundle_file" [ngClass]="{'is-invalid': bundle_file.errors}">
-
-              <span class="help-block text-danger" *ngIf="bundle_file.errors?.error" [ngClass]="'text-danger'">
-                {{bundle_file.errors?.error}}
-              </span>
-
-            </div>
-            <!--  Bundle end -->
-
-            <!--  Key start -->
-            <div class="form-group" *ngIf="is_upload">
-              <label for="key_file">Key</label>
-              <input [disabled]="isDisabled()" id="key_file" #key_file="ngModel" [(ngModel)]="t_key_file" class="form-control" (change)="readKey(certform)"
-                accept=".key" name="key_file" type="file" [ngClass]="{'is-invalid': key_file.errors}">
-
-              <span class="help-block text-danger" *ngIf="key_file.errors?.error" [ngClass]="'text-danger'">
-                {{key_file.errors?.error}}
-              </span>
-
-            </div>
-            <!--  Key end -->
-
-
-            <!--  bundle text start -->
-            <div class="form-group" *ngIf="!is_upload">
-              <label class="col-md-3 col-form-label" for="bundle_text">Bundle Text</label>
-              <textarea class="form-control" [disabled]="isDisabled()" #bundle_text required id="bundle_text" name="bundle_text" [(ngModel)]="cert.bundle_text">
-              </textarea>
-            </div>
-            <!--  bundle text end -->
-
-            <!--  Key start -->
-            <div class="form-group" *ngIf="!is_upload">
-              <label class="col-md-3 col-form-label" for="key_text">Key Text</label>
-              <textarea class="form-control" [disabled]="isDisabled()" #key_text required id="key_text" name="key_text" [(ngModel)]="cert.key_text">
-                 </textarea>
-            </div>
-            <!--  Key end -->
-
-
-
 
             <div class="card-footer">
               <button [disabled]="isDisabled()" type="submit" class="btn btn-primary">
