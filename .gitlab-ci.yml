@@ -24,7 +24,7 @@ deploy:
     # Config git to avoid first usage questions. Set the identity
     - git config --global user.email "${SSH_USER_EMAIL}" && git config --global user.name "Gitlab CI"
     - rm -rf TygerCaddy
-    - git clone -b api git@project.tygercaddy.com:TygerCaddy/TygerCaddy.git
+    - git clone -b api ${GIT_TYGER_PATH}
     - npm install
     - npm run build-prod
     - rm -rf TygerCaddy/TygerCaddy/assets/angular/*
