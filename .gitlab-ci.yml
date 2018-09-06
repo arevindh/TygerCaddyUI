@@ -3,6 +3,7 @@ image: node:latest
 cache:
   paths:
     - node_modules/
+    - TygerCaddy/
 
 stages:
   - deploy
@@ -12,10 +13,29 @@ deploy:
   environment:
     name: development
   script:
+    # Install ssh-agent through openssh-client if not present
+    - 'which ssh-agent || ( apt-get update -qy && apt-get install openssh-client -qqy )'
+    # Add the private key to this user
+    - eval $(ssh-agent -s) 
+    - ssh-add <(echo "$SSH_PRIVATE_KEY_BASE64" | base64 --decode)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    # Config git to avoid first usage questions. Set the identity
+    - git config --global user.email "${SSH_USER_EMAIL}" && git config --global user.name "Gitlab CI"
+    - rm -rf TygerCaddy
+    - git clone -b api git@project.tygercaddy.com:TygerCaddy/TygerCaddy.git
     - npm install
     - npm run build-prod
+    - rm -rf TygerCaddy/TygerCaddy/assets/angular/*
+    - cp -r dist/* TygerCaddy/TygerCaddy/assets/angular/
+    - cd TygerCaddy
+    - git add .
+    - git commit -m "Automated Build No. ${CI_JOB_ID}"
+    - git checkout -b "ci_build_${CI_JOB_ID}"
+    - git push --set-upstream origin ci_build_${CI_JOB_ID}
   only:
     - dev
   artifacts:
     paths:
-    - dist/*  
+    - TygerCaddy/*  
